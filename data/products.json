@@ -1,0 +1,91 @@
+[
+  { "id": 1, "category": "French Fries", "name": "Salted French Fries", "regular": 49, "large": 69, "type":"veg" },
+  { "id": 2, "category": "French Fries", "name": "Peri Peri French Fries", "regular": 59, "large": 79, "type":"veg" },
+  { "id": 3, "category": "French Fries", "name": "Cheese Masala Fries", "regular": 89, "large": 109, "type":"veg" },
+
+  { "id": 4, "category": "Momos (Fried)", "name": "Mixed Veg Momos", "regular": 69, "large": 139, "type":"veg" },
+  { "id": 5, "category": "Momos (Fried)", "name": "Paneer Momos", "regular": 79, "large": 149, "type":"veg" },
+  { "id": 6, "category": "Momos (Fried)", "name": "Chicken Momos", "regular": 79, "large": 149, "type":"nonveg" },
+
+  { "id": 7, "category": "Veg Bites", "name": "Veg Nuggets", "regular": 69, "large": 139, "type":"veg" },
+  { "id": 8, "category": "Veg Bites", "name": "Cheese Veg Nuggets", "regular": 79, "large": 149, "type":"veg" },
+  { "id": 9, "category": "Veg Bites", "name": "Potato Cheese Balls", "regular": 79, "large": 149, "type":"veg" },
+  { "id": 10, "category": "Veg Bites", "name": "Paneer Pops", "regular": 79, "large": 149, "type":"veg" },
+
+  { "id": 11, "category": "Non-Veg Bites", "name": "Chicken Nuggets", "regular": 69, "large": 139, "type":"nonveg" },
+  { "id": 12, "category": "Non-Veg Bites", "name": "Chicken Cheese Nuggets", "regular": 79, "large": 149, "type":"nonveg" },
+  { "id": 13, "category": "Non-Veg Bites", "name": "Chicken Fingers", "regular": 79, "large": 149, "type":"nonveg" },
+  { "id": 14, "category": "Non-Veg Bites", "name": "Chicken Pops", "regular": 79, "large": 149, "type":"nonveg" },
+  { "id": 15, "category": "Non-Veg Bites", "name": "Chicken Lollipop", "regular": 99, "large": 189, "type":"nonveg" },
+  { "id": 16, "category": "Non-Veg Bites", "name": "Chicken Wings", "regular": 99, "large": 189, "type":"nonveg" },
+
+  { "id": 17, "category": "Burger", "name": "Veg Burger", "price": 79, "type":"veg" },
+  { "id": 18, "category": "Burger", "name": "Cheese Veg Burger", "price": 109, "type":"veg" },
+  { "id": 19, "category": "Burger", "name": "Chicken Burger", "price": 89, "type":"nonveg" },
+  { "id": 20, "category": "Burger", "name": "Chicken Cheese Burger", "price": 119, "type":"nonveg" },
+
+  { "id": 21, "category": "Maggi", "name": "Plain Maggi", "price": 69, "type":"veg" },
+  { "id": 22, "category": "Maggi", "name": "Masala Maggi", "price": 79, "type":"veg" },
+  { "id": 23, "category": "Maggi", "name": "Masala Cheese Maggi", "price": 99, "type":"veg" },
+  { "id": 24, "category": "Maggi", "name": "Egg Maggi", "price": 79, "type":"nonveg" },
+  { "id": 25, "category": "Maggi", "name": "Egg Cheese Maggi", "price": 99, "type":"nonveg" },
+
+  { "id": 26, "category": "Special", "name": "Chicken Loaded Fries", "price": 149, "type":"nonveg" },
+
+  { "id": 27, "category": "Beverages", "name": "Signature Cold Choco Coffee", "price": 89, "type":"veg" },
+  { "id": 28, "category": "Beverages", "name": "Choco Coffee Boba Blast", "price": 109, "type":"veg" },
+  { "id": 29, "category": "Beverages", "name": "Classic Ice Cream Choco Cold Coffee", "price": 129, "type":"veg" },
+
+  { "id": 30, "category": "Boba Coolers", "name": "Mango Mint Boba Cooler", "price": 89, "type":"veg" },
+  { "id": 31, "category": "Boba Coolers", "name": "Pineapple Boba Sparkler", "price": 89, "type":"veg" },
+  { "id": 32, "category": "Boba Coolers", "name": "Strawberry Boba Sparkler", "price": 89, "type":"veg" },
+  { "id": 33, "category": "Boba Coolers", "name": "Blueberry Boba Cooler", "price": 99, "type":"veg" },
+  { "id": 34, "category": "Boba Coolers", "name": "Mixed Bubble Boba Cooler", "price": 109, "type":"veg" },
+
+  { "id": 35, "category": "Boba Shakes", "name": "Pineapple Cream Splash Boba", "price": 149, "type":"veg" },
+  { "id": 36, "category": "Boba Shakes", "name": "Mango Bubble Melt Boba", "price": 149, "type":"veg" },
+  { "id": 37, "category": "Boba Shakes", "name": "Strawberry Pearl Splash Boba", "price": 149, "type":"veg" },
+  { "id": 38, "category": "Boba Shakes", "name": "Berry Bubble Wave Boba", "price": 169, "type":"veg" },
+
+  { "id": 39, "category": "Classic Mojito", "name": "Classic Lemon Mint", "price": 49, "type":"veg" },
+  { "id": 40, "category": "Classic Mojito", "name": "Mango Mint Mojito", "price": 49, "type":"veg" },
+  { "id": 41, "category": "Classic Mojito", "name": "Strawberry Lemon Spritzer", "price": 49, "type":"veg" },
+  { "id": 42, "category": "Classic Mojito", "name": "Guava Masala Cooler", "price": 49, "type":"veg" },
+  { "id": 43, "category": "Classic Mojito", "name": "Pineapple Mint Mojito", "price": 49, "type":"veg" },
+  { "id": 44, "category": "Classic Mojito", "name": "Blueberry Lemon Spritzer", "price": 59, "type":"veg" },
+  { "id": 45, "category": "Classic Mojito", "name": "Signature Mixed Fruit", "price": 69, "type":"veg" },
+
+  { "id": 46, "category": "Ice Cream Box", "name": "100ml Box", "price": 30, "type":"veg" },
+  { "id": 47, "category": "Ice Cream Box", "name": "250ml Box", "price": 69, "type":"veg" },
+  { "id": 48, "category": "Ice Cream Box", "name": "500ml Box", "price": 129, "type":"veg" },
+
+  { "id": 49, "category": "Ice Cream Scoops", "name": "1 Scoop", "price": 40, "type":"veg" },
+  { "id": 50, "category": "Ice Cream Scoops", "name": "2 Scoops", "price": 69, "type":"veg" },
+  { "id": 51, "category": "Ice Cream Scoops", "name": "3 Scoops", "price": 99, "type":"veg" },
+
+  { "id": 52, "category": "Milk Shakes", "name": "Classic Vanilla Bliss", "price": 99, "type":"veg" },
+  { "id": 53, "category": "Milk Shakes", "name": "Smooth Banana Bliss", "price": 109, "type":"veg" },
+  { "id": 54, "category": "Milk Shakes", "name": "Creamy Choco Bliss", "price": 119, "type":"veg" },
+  { "id": 55, "category": "Milk Shakes", "name": "Strawberry Delight Bliss", "price": 129, "type":"veg" },
+  { "id": 56, "category": "Milk Shakes", "name": "Pure Guava Bliss", "price": 129, "type":"veg" },
+  { "id": 57, "category": "Milk Shakes", "name": "Creamy Oreo Bliss", "price": 139, "type":"veg" },
+  { "id": 58, "category": "Milk Shakes", "name": "Mango Melt Bliss", "price": 139, "type":"veg" },
+  { "id": 59, "category": "Milk Shakes", "name": "Crunchy KitKat Bliss", "price": 149, "type":"veg" },
+  { "id": 60, "category": "Milk Shakes", "name": "Crunchy KitKat Oreo Bliss", "price": 159, "type":"veg" },
+  { "id": 61, "category": "Milk Shakes", "name": "Dry Fruits Creamy Bliss", "price": 159, "type":"veg" },
+
+  { "id": 62, "category": "Thick Shakes", "name": "Creamy Vanilla Blast", "price": 159, "type":"veg" },
+  { "id": 63, "category": "Thick Shakes", "name": "Choco Melt Blast", "price": 169, "type":"veg" },
+  { "id": 64, "category": "Thick Shakes", "name": "Strawberry Choco-Chip Blast", "price": 179, "type":"veg" },
+  { "id": 65, "category": "Thick Shakes", "name": "Creamy Mango Blast", "price": 189, "type":"veg" },
+  { "id": 66, "category": "Thick Shakes", "name": "Creamy Oreo Blast", "price": 189, "type":"veg" },
+  { "id": 67, "category": "Thick Shakes", "name": "Crunchy KitKat Blast", "price": 199, "type":"veg" },
+  { "id": 68, "category": "Thick Shakes", "name": "Nutella Oreo Blast", "price": 199, "type":"veg" },
+  { "id": 69, "category": "Thick Shakes", "name": "Crunchy KitKat Oreo Blast", "price": 209, "type":"veg" },
+  { "id": 70, "category": "Thick Shakes", "name": "Dry Fruits Crunchy Blast", "price": 229, "type":"veg" },
+
+  { "id": 71, "category": "Toppings", "name": "Dry Fruits", "price": 20, "type":"veg" },
+  { "id": 72, "category": "Toppings", "name": "Popping Boba", "price": 20, "type":"veg" },
+  { "id": 73, "category": "Toppings", "name": "Chocolate Syrup", "price": 10, "type":"veg" },
+  { "id": 74, "category": "Toppings", "name": "Sprinklers", "price": 10, "type":"veg" }
+]
