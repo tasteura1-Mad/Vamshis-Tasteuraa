@@ -143,29 +143,6 @@ function filterProducts() {
 
     displayProducts(filtered);
 
-} {
-
-    const search = document
-        .getElementById("search")
-        .value
-        .toLowerCase();
-
-    const filtered = products.filter(product => {
-
-        const matchesCategory =
-            currentCategory === "All" ||
-            product.category === currentCategory;
-
-        const matchesSearch =
-            product.name.toLowerCase().includes(search) ||
-            product.category.toLowerCase().includes(search);
-
-        return matchesCategory && matchesSearch;
-
-    });
-
-    displayProducts(filtered);
-
 }
 
 function getCategoryIcon(category){
@@ -194,6 +171,10 @@ function getCategoryIcon(category){
 
 }
 
+// Check if category is ice cream
+function isIceCreamCategory(category){
+    return category.toLowerCase().includes("ice cream");
+}
 
 // ==========================
 // Display Products
@@ -215,7 +196,10 @@ function displayProducts(list) {
             ? '<span class="badge bestseller">⭐ Bestseller</span>'
             : '';
 
-        const homemade = '<span class="badge homemade">🏠 Homemade</span>';
+        // Show homemade badge only for ice cream items
+        const homemade = isIceCreamCategory(product.category)
+            ? '<span class="badge homemade">🏠 Homemade</span>'
+            : '';
 
         let priceSection = "";
 
