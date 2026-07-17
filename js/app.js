@@ -1,197 +1,222 @@
+/* ==========================================
+   Vamshi's Tasteuraa V2.0
+   app.js - Part 1
+========================================== */
+
 let products = [];
-let currentCategory = "All";
+let filteredProducts = [];
+let selectedCategory = "All";
 
-fetch("data/products.json")
-    .then(res => res.json())
-    .then(data => {
+/* ==========================================
+   INITIALIZE
+========================================== */
 
-        products = data;
+document.addEventListener("DOMContentLoaded", async () => {
 
-        console.log(products.length);
-        console.log(products);
-        console.log([...new Set(products.map(p => p.category))]);
+    await loadProducts();
 
-        createCategories();
-        displayProducts(products);
+    createCategoryButtons();
 
-        document
-            .getElementById("search")
-            .addEventListener("input", filterProducts);
+    displayProducts(filteredProducts);
 
-        document
-            .getElementById("sort")
-            .addEventListener("change", filterProducts);
+    initializeSearch();
 
-    });
+});
 
+/* ==========================================
+   LOAD PRODUCTS
+========================================== */
 
-// ==========================
-// Create Categories
-// ==========================
+async function loadProducts() {
 
-function createCategories() {
+    try {
 
-    const categoriesDiv = document.getElementById("categories");
+        const response = await fetch("data/products.json");
 
-    categoriesDiv.innerHTML = "";
+        products = await response.json();
 
-    // All button
-    const allBtn = document.createElement("button");
-    allBtn.className = "category active";
-    allBtn.innerText = "All";
+        filteredProducts = [...products];
 
-    allBtn.onclick = () => {
+    }
 
-        currentCategory = "All";
+    catch (error) {
 
-        document
-            .querySelectorAll(".category")
-            .forEach(btn => btn.classList.remove("active"));
+        console.error("Unable to load products", error);
 
-        allBtn.classList.add("active");
+    }
 
-        filterProducts();
+}
 
-    };
+/* ==========================================
+   CATEGORY BUTTONS
+========================================== */
 
-    categoriesDiv.appendChild(allBtn);
+function createCategoryButtons() {
 
-    // Other categories
-    const categories = [...new Set(products.map(p => p.category))];
+    const container = document.getElementById("categories");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const categories = [
+        "All",
+        ...new Set(products.map(product => product.category))
+    ];
 
     categories.forEach(category => {
 
-        const btn = document.createElement("button");
+        const button = document.createElement("button");
 
-        btn.className = "category";
-        btn.innerText = category;
+        button.className = "category-btn";
 
-        btn.onclick = () => {
+        if (category === "All")
+            button.classList.add("active");
 
-            currentCategory = category;
+        button.innerHTML =
+            `${getCategoryIcon(category)} ${category}`;
+
+        button.addEventListener("click", () => {
 
             document
-                .querySelectorAll(".category")
+                .querySelectorAll(".category-btn")
                 .forEach(btn => btn.classList.remove("active"));
 
-            btn.classList.add("active");
+            button.classList.add("active");
+
+            selectedCategory = category;
 
             filterProducts();
 
-        };
+        });
 
-        categoriesDiv.appendChild(btn);
+        container.appendChild(button);
 
     });
 
 }
 
-
-
-// ==========================
-// Search + Category Filter
-// ==========================
+/* ==========================================
+   FILTER PRODUCTS
+========================================== */
 
 function filterProducts() {
 
-    const search = document
-        .getElementById("search")
-        .value
-        .toLowerCase();
+    if (selectedCategory === "All") {
 
-    const sort = document
-        .getElementById("sort")
-        .value;
+        filteredProducts = [...products];
 
-    let filtered = products.filter(product => {
+    }
 
-        const matchesCategory =
-            currentCategory === "All" ||
-            product.category === currentCategory;
+    else {
 
-        const matchesSearch =
-            product.name.toLowerCase().includes(search) ||
-            product.category.toLowerCase().includes(search);
+        filteredProducts = products.filter(product =>
+            product.category === selectedCategory
+        );
 
-        return matchesCategory && matchesSearch;
+    }
+
+    displayProducts(filteredProducts);
+
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+function initializeSearch() {
+
+    const search = document.getElementById("search");
+
+    if (!search) return;
+
+    search.addEventListener("input", () => {
+
+        const keyword = search.value
+            .trim()
+            .toLowerCase();
+
+        filteredProducts = products.filter(product => {
+
+            const matchCategory =
+                selectedCategory === "All" ||
+                product.category === selectedCategory;
+
+            const matchText =
+                product.name.toLowerCase().includes(keyword);
+
+            return matchCategory && matchText;
+
+        });
+
+        displayProducts(filteredProducts);
 
     });
 
-    if (sort === "low") {
+}
 
-        filtered.sort((a, b) =>
-            (a.price ?? a.regular) - (b.price ?? b.regular)
-        );
+/* ==========================================
+   CATEGORY ICONS
+========================================== */
 
-    }
+function getCategoryIcon(category) {
 
-    if (sort === "high") {
+    const icons = {
 
-        filtered.sort((a, b) =>
-            (b.price ?? b.regular) - (a.price ?? a.regular)
-        );
+        "Ice Creams":"🍦",
+        "Ice Cream Boxes":"🍨",
+        "Milk Shakes":"🥤",
+        "Thick Shakes":"🥛",
+        "Boba Coolers":"🧋",
+        "Boba Shakes":"🧋",
+        "Mojitos":"🍹",
+        "French Fries":"🍟",
+        "Burgers":"🍔",
+        "Veg Bites":"🥟",
+        "Non Veg Bites":"🍗",
+        "Momos":"🥠",
+        "Specials":"⭐",
+        "Maggi":"🍜",
+        "Toppings":"🍫"
 
-    }
+    };
 
-    if (sort === "name") {
-
-        filtered.sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
-
-    }
-
-    displayProducts(filtered);
+    return icons[category] || "🍽️";
 
 }
 
-function getCategoryIcon(category){
+/* ==========================================
+   PART 2 STARTS BELOW
+========================================== */
 
-    switch(category){
+/* ==========================================
+   DISPLAY PRODUCTS (Accordion Style)
+========================================== */
 
-        case "French Fries": return "🍟";
-        case "Burger": return "🍔";
-        case "Milk Shakes": return "🥤";
-        case "Thick Shakes": return "🥛";
-        case "Ice Cream Box": return "🍨";
-        case "Ice Cream Scoops": return "🍨";
-        case "Classic Mojito": return "🍹";
-        case "Boba Coolers": return "🧋";
-        case "Boba Shakes": return "🧋";
-        case "Maggi": return "🍜";
-        case "Momos (Fried)": return "🥟";
-        case "Veg Bites": return "🥗";
-        case "Non-Veg Bites": return "🍗";
-        case "Beverages": return "☕";
-        case "Special": return "🔥";
-        case "Toppings": return "✨";
-        default: return "🍽️";
-
-    }
-
-}
-
-// Check if category is ice cream
-function isIceCreamCategory(category){
-    return category === "Ice Cream Box" || category === "Ice Cream Scoops";
-}
-
-// ==========================
-// Display Products
-// ==========================
-
-function displayProducts(list){
+function displayProducts(productList) {
 
     const container = document.getElementById("category-products");
 
+    if (!container) return;
+
     container.innerHTML = "";
+
+    if (productList.length === 0) {
+
+        container.innerHTML = `
+            <div class="no-products">
+                <h2>😔 No Products Found</h2>
+            </div>
+        `;
+        return;
+    }
 
     // Group products by category
     const grouped = {};
 
-    list.forEach(product => {
+    productList.forEach(product => {
 
-        if(!grouped[product.category]){
+        if (!grouped[product.category]) {
             grouped[product.category] = [];
         }
 
@@ -199,97 +224,441 @@ function displayProducts(list){
 
     });
 
-    Object.keys(grouped).forEach(category=>{
+    Object.keys(grouped).forEach(category => {
 
-        const categoryCard = document.createElement("div");
-        categoryCard.className = "category-card";
+        const card = document.createElement("div");
+        card.className = "category-card";
 
-        const header = document.createElement("div");
-        header.className = "category-header";
+        card.innerHTML = `
+            <div class="category-header">
 
-        header.innerHTML = `
-            <div>
-                <h2>${getCategoryIcon(category)} ${category}</h2>
-                <small>${grouped[category].length} Items</small>
+                <div class="category-title">
+                    ${getCategoryIcon(category)}
+                    ${category}
+                </div>
+
+                <div class="toggle-btn">+</div>
+
             </div>
 
-            <button class="toggle-btn">+</button>
+            <div class="category-products"></div>
         `;
 
-        const productsDiv = document.createElement("div");
-        productsDiv.className = "category-products";
+        const productsContainer =
+            card.querySelector(".category-products");
 
-        header.onclick = ()=>{
+        grouped[category].forEach(product => {
 
-            productsDiv.classList.toggle("show");
+            productsContainer.appendChild(
+                createProductCard(product)
+            );
 
-            header.querySelector(".toggle-btn").textContent =
-                productsDiv.classList.contains("show")
+        });
+
+        // Accordion Toggle
+        const header =
+            card.querySelector(".category-header");
+
+        header.addEventListener("click", () => {
+
+            card.classList.toggle("open");
+
+            const btn =
+                card.querySelector(".toggle-btn");
+
+            btn.textContent =
+                card.classList.contains("open")
                 ? "−"
                 : "+";
 
-        };
+        });
 
-        // Products will be added here in the next step
-
-        categoryCard.appendChild(header);
-        categoryCard.appendChild(productsDiv);
-
-        container.appendChild(categoryCard);
+        container.appendChild(card);
 
     });
 
 }
 
+/* ==========================================
+   CREATE PRODUCT CARD
+========================================== */
 
+function createProductCard(product) {
 
-// ==========================
-// Cart Panel
-// ==========================
+    const card = document.createElement("div");
 
-// Header Cart Button
-document.querySelector(".cart-btn").addEventListener("click", () => {
+    card.className = "product-card";
 
-    document
-        .getElementById("cart-panel")
-        .classList.add("open");
+    // Image (optional)
+    const image = product.image
+        ? product.image
+        : "images/products/default.png";
+
+    // Price Section
+    let priceHTML = "";
+
+    if (product.regular && product.large) {
+
+        priceHTML = `
+
+            <div class="price-row">
+
+                <span class="price-label">
+                    Regular
+                </span>
+
+                <span class="price">
+                    ₹${product.regular}
+                </span>
+
+                <button class="add-btn"
+                    onclick="addProduct('${product.id}','Regular')">
+
+                    Add
+
+                </button>
+
+            </div>
+
+            <div class="price-row">
+
+                <span class="price-label">
+                    Large
+                </span>
+
+                <span class="price">
+                    ₹${product.large}
+                </span>
+
+                <button class="add-btn"
+                    onclick="addProduct('${product.id}','Large')">
+
+                    Add
+
+                </button>
+
+            </div>
+
+        `;
+
+    } else {
+
+        const price =
+            product.price ||
+            product.single ||
+            product.regular;
+
+        priceHTML = `
+
+            <div class="single-price">
+
+                <span class="price">
+
+                    ₹${price}
+
+                </span>
+
+                <button class="add-btn"
+                    onclick="addProduct('${product.id}')">
+
+                    Add
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+    card.innerHTML = `
+
+        <div class="product-image">
+
+            <img src="${image}"
+                 alt="${product.name}">
+
+        </div>
+
+        <div class="product-body">
+
+            <h3 class="product-title">
+
+                ${product.name}
+
+            </h3>
+
+            <p class="product-desc">
+
+                Homemade • Fresh • Premium Quality
+
+            </p>
+
+            <div class="product-rating">
+
+                ⭐⭐⭐⭐⭐
+
+            </div>
+
+            ${priceHTML}
+
+        </div>
+
+    `;
+
+    return card;
+
+}
+
+/* ==========================================
+   ADD PRODUCT TO CART
+========================================== */
+
+function addProduct(productId, size = "") {
+
+    const product =
+        products.find(p => p.id == productId);
+
+    if (!product) return;
+
+    if (typeof addToCart === "function") {
+
+        addToCart(product, size);
+
+    } else {
+
+        console.warn("addToCart() not found in cart.js");
+
+    }
+
+}
+/* ==========================================
+   SORT PRODUCTS
+========================================== */
+
+function initializeSorting() {
+
+    const sortSelect = document.getElementById("sort");
+
+    if (!sortSelect) return;
+
+    sortSelect.addEventListener("change", () => {
+
+        const value = sortSelect.value;
+
+        switch (value) {
+
+            case "name":
+
+                filteredProducts.sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                );
+
+                break;
+
+            case "price-low":
+
+                filteredProducts.sort((a, b) =>
+                    getProductPrice(a) - getProductPrice(b)
+                );
+
+                break;
+
+            case "price-high":
+
+                filteredProducts.sort((a, b) =>
+                    getProductPrice(b) - getProductPrice(a)
+                );
+
+                break;
+
+            default:
+                break;
+
+        }
+
+        displayProducts(filteredProducts);
+
+    });
+
+}
+
+/* ==========================================
+   GET LOWEST PRODUCT PRICE
+========================================== */
+
+function getProductPrice(product) {
+
+    const prices = [];
+
+    if (product.price)
+        prices.push(Number(product.price));
+
+    if (product.single)
+        prices.push(Number(product.single));
+
+    if (product.regular)
+        prices.push(Number(product.regular));
+
+    if (product.large)
+        prices.push(Number(product.large));
+
+    return prices.length ? Math.min(...prices) : 0;
+
+}
+
+/* ==========================================
+   PRODUCT BADGES
+========================================== */
+
+function getProductBadge(product) {
+
+    if (product.bestseller)
+        return "🔥 Bestseller";
+
+    if (product.new)
+        return "🆕 New";
+
+    if (product.homemade)
+        return "❤️ Homemade";
+
+    return "";
+
+}
+
+/* ==========================================
+   ANIMATE PRODUCT CARDS
+========================================== */
+
+function animateCards() {
+
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach((card, index) => {
+
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+
+        setTimeout(() => {
+
+            card.style.transition = ".35s";
+
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0px)";
+
+        }, index * 40);
+
+    });
+
+}
+
+/* ==========================================
+   OPEN FIRST CATEGORY
+========================================== */
+
+function openFirstCategory() {
+
+    const firstCard =
+        document.querySelector(".category-card");
+
+    if (!firstCard) return;
+
+    firstCard.classList.add("open");
+
+    const button =
+        firstCard.querySelector(".toggle-btn");
+
+    if (button)
+        button.textContent = "−";
+
+}
+
+/* ==========================================
+   COLLAPSE OTHER CATEGORIES
+========================================== */
+
+function enableSingleAccordion() {
+
+    document.querySelectorAll(".category-header")
+        .forEach(header => {
+
+            header.addEventListener("click", () => {
+
+                const current =
+                    header.parentElement;
+
+                document
+                    .querySelectorAll(".category-card")
+                    .forEach(card => {
+
+                        if (card !== current) {
+
+                            card.classList.remove("open");
+
+                            const btn =
+                                card.querySelector(".toggle-btn");
+
+                            if (btn)
+                                btn.textContent = "+";
+
+                        }
+
+                    });
+
+            });
+
+        });
+
+}
+
+/* ==========================================
+   REFRESH UI
+========================================== */
+
+function refreshUI() {
+
+    displayProducts(filteredProducts);
+
+    animateCards();
+
+    openFirstCategory();
+
+    enableSingleAccordion();
+
+}
+
+/* ==========================================
+   OVERRIDE DISPLAY FUNCTION
+========================================== */
+
+const originalDisplayProducts = displayProducts;
+
+displayProducts = function (list) {
+
+    originalDisplayProducts(list);
+
+    animateCards();
+
+    openFirstCategory();
+
+    enableSingleAccordion();
+
+};
+
+/* ==========================================
+   INITIALIZE SORTING
+========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    initializeSorting();
 
 });
 
-// Floating Cart Button
-document.getElementById("floating-cart").addEventListener("click", () => {
+/* ==========================================
+   END OF app.js
+========================================== */
 
-    document
-        .getElementById("cart-panel")
-        .classList.add("open");
 
-});
 
-// Close Button
-document.getElementById("close-cart").addEventListener("click", () => {
 
-    document
-        .getElementById("cart-panel")
-        .classList.remove("open");
-
-});
-
-document
-.getElementById("checkout")
-.addEventListener("click",()=>{
-
-document
-.getElementById("checkout-modal")
-.classList.add("show");
-
-});
-
-document
-.getElementById("close-checkout")
-.addEventListener("click",()=>{
-
-document
-.getElementById("checkout-modal")
-.classList.remove("show");
-
-});
