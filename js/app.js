@@ -180,128 +180,62 @@ function isIceCreamCategory(category){
 // Display Products
 // ==========================
 
-function displayProducts(list) {
+function displayProducts(list){
 
-    const container = document.getElementById("products");
+    const container = document.getElementById("category-products");
 
     container.innerHTML = "";
 
+    // Group products by category
+    const grouped = {};
+
     list.forEach(product => {
 
-        const vegIcon = product.type === "veg"
-            ? '<div class="veg-icon"></div>'
-            : '<div class="nonveg-icon"></div>';
-
-        const bestSeller = product.id <= 10
-            ? '<span class="badge bestseller">⭐ Bestseller</span>'
-            : '';
-
-        // Show homemade badge ONLY for exact ice cream categories
-        const homemade = isIceCreamCategory(product.category)
-            ? '<span class="badge homemade">🏠 Homemade</span>'
-            : '';
-
-        let priceSection = "";
-
-        if(product.price){
-
-            priceSection = `
-
-                <div class="single-price">
-
-                    <span class="price">₹${product.price}</span>
-
-                    <button
-                    class="add-btn"
-                    onclick="addToCart(${product.id})">
-
-                        + Add
-
-                    </button>
-
-                </div>
-
-            `;
-
+        if(!grouped[product.category]){
+            grouped[product.category] = [];
         }
 
-        else{
+        grouped[product.category].push(product);
 
-            priceSection = `
+    });
 
-                <div class="size-row">
+    Object.keys(grouped).forEach(category=>{
 
-                    <span>Regular ₹${product.regular}</span>
+        const categoryCard = document.createElement("div");
+        categoryCard.className = "category-card";
 
-                    <button
-                    class="add-btn"
-                    onclick="addToCart(${product.id},'regular')">
+        const header = document.createElement("div");
+        header.className = "category-header";
 
-                        + Add
-
-                    </button>
-
-                </div>
-
-                <div class="size-row">
-
-                    <span>Large ₹${product.large}</span>
-
-                    <button
-                    class="add-btn"
-                    onclick="addToCart(${product.id},'large')">
-
-                        + Add
-
-                    </button>
-
-                </div>
-
-            `;
-
-        }
-
-        container.innerHTML += `
-
-        <div class="product">
-
-            <div class="product-top">
-
-                ${vegIcon}
-
-                <button class="fav-btn">♡</button>
-
+        header.innerHTML = `
+            <div>
+                <h2>${getCategoryIcon(category)} ${category}</h2>
+                <small>${grouped[category].length} Items</small>
             </div>
 
-            <div class="product-icon">
-    ${getCategoryIcon(product.category)}
-</div>
-
-            <div class="product-badges">
-
-                ${homemade}
-
-                ${bestSeller}
-
-            </div>
-
-            <h3>${product.name}</h3>
-
-            <p>${product.category}</p>
-
-            <div class="rating">
-
-                ⭐ 4.8
-
-                <span>(250+)</span>
-
-            </div>
-
-            ${priceSection}
-
-        </div>
-
+            <button class="toggle-btn">+</button>
         `;
+
+        const productsDiv = document.createElement("div");
+        productsDiv.className = "category-products";
+
+        header.onclick = ()=>{
+
+            productsDiv.classList.toggle("show");
+
+            header.querySelector(".toggle-btn").textContent =
+                productsDiv.classList.contains("show")
+                ? "−"
+                : "+";
+
+        };
+
+        // Products will be added here in the next step
+
+        categoryCard.appendChild(header);
+        categoryCard.appendChild(productsDiv);
+
+        container.appendChild(categoryCard);
 
     });
 
