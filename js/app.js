@@ -1,31 +1,53 @@
-/* ==========================================
-   Vamshi's Tasteuraa V2.0
-   app.js - Part 1
-========================================== */
+// =====================================================
+// Vamshi's Tasteuraa
+// app.js
+// =====================================================
 
-let products = [];
+let allProducts = [];
 let filteredProducts = [];
-let selectedCategory = "All";
 
-/* ==========================================
-   INITIALIZE
-========================================== */
+// Emoji icons by category
+const categoryIcons = {
+    "Ice Creams": "🍨",
+    "Scoops": "🍦",
+    "Ice Cream Boxes": "🍧",
+    "Milk Shakes": "🥤",
+    "Thick Shakes": "🥛",
+    "Boba Shakes": "🧋",
+    "Boba Coolers": "🧋",
+    "Mojitos": "🍹",
+    "French Fries": "🍟",
+    "Veg Bites": "🥟",
+    "Non Veg Bites": "🍗",
+    "Momos": "🥟",
+    "Burgers": "🍔",
+    "Maggi": "🍜",
+    "Specials": "⭐"
+};
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    await loadProducts();
+    loadProducts();
 
-    createCategoryButtons();
+    const search = document.getElementById("search");
 
-    displayProducts(filteredProducts);
+    if (search) {
 
-    initializeSearch();
+        search.addEventListener("input", function () {
+
+            const keyword = this.value.toLowerCase();
+
+            filteredProducts = allProducts.filter(product =>
+                product.name.toLowerCase().includes(keyword)
+            );
+
+            renderProducts(filteredProducts);
+
+        });
+
+    }
 
 });
-
-/* ==========================================
-   LOAD PRODUCTS
-========================================== */
 
 async function loadProducts() {
 
@@ -33,23 +55,21 @@ async function loadProducts() {
 
         const response = await fetch("data/products.json");
 
-        products = await response.json();
+        allProducts = await response.json();
 
-        filteredProducts = [...products];
+        filteredProducts = [...allProducts];
 
-    }
+        createCategoryButtons();
 
-    catch (error) {
+        renderProducts(filteredProducts);
 
-        console.error("Unable to load products", error);
+    } catch (error) {
+
+        console.error("Unable to load products.json", error);
 
     }
 
 }
-
-/* ==========================================
-   CATEGORY BUTTONS
-========================================== */
 
 function createCategoryButtons() {
 
@@ -59,141 +79,64 @@ function createCategoryButtons() {
 
     container.innerHTML = "";
 
-    const categories = [
-        "All",
-        ...new Set(products.map(product => product.category))
-    ];
+    const categories = [...new Set(allProducts.map(p => p.category))];
 
-    categories.forEach(category => {
+    // ALL button
 
-        const button = document.createElement("button");
+    const allBtn = document.createElement("button");
 
-        button.className = "category-btn";
+    allBtn.className = "category-btn active";
 
-        if (category === "All")
-            button.classList.add("active");
+    allBtn.innerText = "🍽️ All";
 
-        button.innerHTML =
-            `${getCategoryIcon(category)} ${category}`;
+    allBtn.onclick = () => {
 
-        button.addEventListener("click", () => {
+        document.querySelectorAll(".category-btn")
+            .forEach(btn => btn.classList.remove("active"));
 
-            document
-                .querySelectorAll(".category-btn")
-                .forEach(btn => btn.classList.remove("active"));
+        allBtn.classList.add("active");
 
-            button.classList.add("active");
+        filteredProducts = [...allProducts];
 
-            selectedCategory = category;
-
-            filterProducts();
-
-        });
-
-        container.appendChild(button);
-
-    });
-
-}
-
-/* ==========================================
-   FILTER PRODUCTS
-========================================== */
-
-function filterProducts() {
-
-    if (selectedCategory === "All") {
-
-        filteredProducts = [...products];
-
-    }
-
-    else {
-
-        filteredProducts = products.filter(product =>
-            product.category === selectedCategory
-        );
-
-    }
-
-    displayProducts(filteredProducts);
-
-}
-
-/* ==========================================
-   SEARCH
-========================================== */
-
-function initializeSearch() {
-
-    const search = document.getElementById("search");
-
-    if (!search) return;
-
-    search.addEventListener("input", () => {
-
-        const keyword = search.value
-            .trim()
-            .toLowerCase();
-
-        filteredProducts = products.filter(product => {
-
-            const matchCategory =
-                selectedCategory === "All" ||
-                product.category === selectedCategory;
-
-            const matchText =
-                product.name.toLowerCase().includes(keyword);
-
-            return matchCategory && matchText;
-
-        });
-
-        displayProducts(filteredProducts);
-
-    });
-
-}
-
-/* ==========================================
-   CATEGORY ICONS
-========================================== */
-
-function getCategoryIcon(category) {
-
-    const icons = {
-
-        "Ice Creams":"🍦",
-        "Ice Cream Boxes":"🍨",
-        "Milk Shakes":"🥤",
-        "Thick Shakes":"🥛",
-        "Boba Coolers":"🧋",
-        "Boba Shakes":"🧋",
-        "Mojitos":"🍹",
-        "French Fries":"🍟",
-        "Burgers":"🍔",
-        "Veg Bites":"🥟",
-        "Non Veg Bites":"🍗",
-        "Momos":"🥠",
-        "Specials":"⭐",
-        "Maggi":"🍜",
-        "Toppings":"🍫"
+        renderProducts(filteredProducts);
 
     };
 
-    return icons[category] || "🍽️";
+    container.appendChild(allBtn);
+
+    // Dynamic buttons
+
+    categories.forEach(category => {
+
+        const btn = document.createElement("button");
+
+        btn.className = "category-btn";
+
+        btn.innerHTML = `${categoryIcons[category] || "🍴"} ${category}`;
+
+        btn.onclick = () => {
+
+            document.querySelectorAll(".category-btn")
+                .forEach(b => b.classList.remove("active"));
+
+            btn.classList.add("active");
+
+            filteredProducts = allProducts.filter(p => p.category === category);
+
+            renderProducts(filteredProducts);
+
+        };
+
+        container.appendChild(btn);
+
+    });
 
 }
+// =====================================================
+// Render Products
+// =====================================================
 
-/* ==========================================
-   PART 2 STARTS BELOW
-========================================== */
-
-/* ==========================================
-   DISPLAY PRODUCTS (Accordion Style)
-========================================== */
-
-function displayProducts(productList) {
+function renderProducts(products) {
 
     const container = document.getElementById("category-products");
 
@@ -201,87 +144,138 @@ function displayProducts(productList) {
 
     container.innerHTML = "";
 
-    if (productList.length === 0) {
+    if (products.length === 0) {
 
         container.innerHTML = `
-            <div class="no-products">
-                <h2>😔 No Products Found</h2>
+            <div style="text-align:center;padding:60px;">
+                <h2>No Products Found 😔</h2>
             </div>
         `;
+
         return;
     }
 
-    // Group products by category
+    // Group by category
+
     const grouped = {};
 
-    productList.forEach(product => {
+    products.forEach(product => {
 
         if (!grouped[product.category]) {
+
             grouped[product.category] = [];
+
         }
 
         grouped[product.category].push(product);
 
     });
 
-    Object.keys(grouped).forEach(category => {
+    Object.keys(grouped).forEach((category, index) => {
 
         const card = document.createElement("div");
+
         card.className = "category-card";
 
+        const bodyId = "cat_" + index;
+
         card.innerHTML = `
-            <div class="category-header">
 
-                <div class="category-title">
-                    ${getCategoryIcon(category)}
-                    ${category}
-                </div>
+        <div class="category-header">
 
-                <div class="toggle-btn">+</div>
+            <h3>
 
-            </div>
+                ${categoryIcons[category] || "🍴"} ${category}
 
-            <div class="category-products"></div>
+            </h3>
+
+            <span class="toggle-btn">
+
+                +
+
+            </span>
+
+        </div>
+
+        <div
+            class="category-products"
+            id="${bodyId}">
+
+        </div>
+
         `;
 
-        const productsContainer =
-            card.querySelector(".category-products");
+        container.appendChild(card);
 
-        grouped[category].forEach(product => {
+        const header = card.querySelector(".category-header");
 
-            productsContainer.appendChild(
-                createProductCard(product)
-            );
+        const body = card.querySelector(".category-products");
 
-        });
-
-        // Accordion Toggle
-        const header =
-            card.querySelector(".category-header");
+        const toggle = card.querySelector(".toggle-btn");
 
         header.addEventListener("click", () => {
 
-            card.classList.toggle("open");
+            document.querySelectorAll(".category-products")
+                .forEach(section => {
 
-            const btn =
-                card.querySelector(".toggle-btn");
+                    if (section !== body) {
 
-            btn.textContent =
-                card.classList.contains("open")
+                        section.classList.remove("open");
+
+                    }
+
+                });
+
+            document.querySelectorAll(".toggle-btn")
+                .forEach(btn => {
+
+                    if (btn !== toggle) {
+
+                        btn.innerHTML = "+";
+
+                    }
+
+                });
+
+            body.classList.toggle("open");
+
+            toggle.innerHTML = body.classList.contains("open")
                 ? "−"
                 : "+";
 
         });
 
-        container.appendChild(card);
+        grouped[category].forEach(product => {
+
+            body.appendChild(createProductCard(product));
+
+        });
 
     });
 
+    // Open first category automatically
+
+    const first = document.querySelector(".category-products");
+
+    const firstToggle = document.querySelector(".toggle-btn");
+
+    if (first) {
+
+        first.classList.add("open");
+
+    }
+
+    if (firstToggle) {
+
+        firstToggle.innerHTML = "−";
+
+    }
+
 }
 
-/* ==========================================
-   CREATE PRODUCT CARD
-========================================== */
+// =====================================================
+// Product Card
+// =====================================================
 
 function createProductCard(product) {
 
@@ -289,83 +283,99 @@ function createProductCard(product) {
 
     card.className = "product-card";
 
-    // Image (optional)
-    const image = product.image
-        ? product.image
-        : "images/products/default.png";
+    const icon = categoryIcons[product.category] || "🍽️";
 
-    // Price Section
     let priceHTML = "";
+
+    // Products with Regular & Large
 
     if (product.regular && product.large) {
 
         priceHTML = `
 
-            <div class="price-row">
+        <div class="product-price">
 
-                <span class="price-label">
-                    Regular
-                </span>
+            <span>
 
-                <span class="price">
-                    ₹${product.regular}
-                </span>
+                Regular
 
-                <button class="add-btn"
-                    onclick="addProduct('${product.id}','Regular')">
+            </span>
 
-                    Add
+            <strong>
 
-                </button>
+                ₹${product.regular}
 
-            </div>
+            </strong>
 
-            <div class="price-row">
+        </div>
 
-                <span class="price-label">
-                    Large
-                </span>
+        <button
+            class="add-btn"
+            onclick="addItem('${product.name}','Regular',${product.regular})">
 
-                <span class="price">
-                    ₹${product.large}
-                </span>
+            Add Regular
 
-                <button class="add-btn"
-                    onclick="addProduct('${product.id}','Large')">
+        </button>
 
-                    Add
+        <div class="product-price">
 
-                </button>
+            <span>
 
-            </div>
+                Large
+
+            </span>
+
+            <strong>
+
+                ₹${product.large}
+
+            </strong>
+
+        </div>
+
+        <button
+            class="add-btn"
+            onclick="addItem('${product.name}','Large',${product.large})">
+
+            Add Large
+
+        </button>
 
         `;
 
-    } else {
+    }
 
-        const price =
-            product.price ||
-            product.single ||
-            product.regular;
+    // Single price products
+
+    else {
+
+        const price = product.price || product.single;
 
         priceHTML = `
 
-            <div class="single-price">
+        <div class="product-price">
 
-                <span class="price">
+            <span>
 
-                    ₹${price}
+                Price
 
-                </span>
+            </span>
 
-                <button class="add-btn"
-                    onclick="addProduct('${product.id}')">
+            <strong>
 
-                    Add
+                ₹${price}
 
-                </button>
+            </strong>
 
-            </div>
+        </div>
+
+        <button
+            class="add-btn"
+            onclick="addItem('${product.name}','Regular',${price})">
+
+            Add to Cart
+
+        </button>
 
         `;
 
@@ -375,290 +385,239 @@ function createProductCard(product) {
 
         <div class="product-image">
 
-            <img src="${image}"
-                 alt="${product.name}">
+            ${icon}
 
         </div>
 
-        <div class="product-body">
+        <div class="product-name">
 
-            <h3 class="product-title">
-
-                ${product.name}
-
-            </h3>
-
-            <p class="product-desc">
-
-                Homemade • Fresh • Premium Quality
-
-            </p>
-
-            <div class="product-rating">
-
-                ⭐⭐⭐⭐⭐
-
-            </div>
-
-            ${priceHTML}
+            ${product.name}
 
         </div>
+
+        ${priceHTML}
 
     `;
 
     return card;
 
 }
+// =====================================================
+// Helpers
+// =====================================================
 
-/* ==========================================
-   ADD PRODUCT TO CART
-========================================== */
+function getProductByName(name) {
 
-function addProduct(productId, size = "") {
+    return allProducts.find(product => product.name === name);
 
-    const product =
-        products.find(p => p.id == productId);
+}
 
-    if (!product) return;
+function scrollToMenu() {
 
-    if (typeof addToCart === "function") {
+    const menu = document.getElementById("menu");
 
-        addToCart(product, size);
+    if (menu) {
 
-    } else {
+        menu.scrollIntoView({
 
-        console.warn("addToCart() not found in cart.js");
+            behavior: "smooth"
+
+        });
 
     }
 
 }
-/* ==========================================
-   SORT PRODUCTS
-========================================== */
 
-function initializeSorting() {
+// =====================================================
+// Floating Cart
+// =====================================================
 
-    const sortSelect = document.getElementById("sort");
+const floatingCart = document.getElementById("floating-cart");
 
-    if (!sortSelect) return;
+if (floatingCart) {
 
-    sortSelect.addEventListener("change", () => {
+    floatingCart.addEventListener("click", () => {
 
-        const value = sortSelect.value;
+        if (typeof openCart === "function") {
 
-        switch (value) {
-
-            case "name":
-
-                filteredProducts.sort((a, b) =>
-                    a.name.localeCompare(b.name)
-                );
-
-                break;
-
-            case "price-low":
-
-                filteredProducts.sort((a, b) =>
-                    getProductPrice(a) - getProductPrice(b)
-                );
-
-                break;
-
-            case "price-high":
-
-                filteredProducts.sort((a, b) =>
-                    getProductPrice(b) - getProductPrice(a)
-                );
-
-                break;
-
-            default:
-                break;
+            openCart();
 
         }
 
-        displayProducts(filteredProducts);
+    });
+
+}
+
+// =====================================================
+// Checkout Button
+// =====================================================
+
+const checkoutButton = document.getElementById("checkout-btn");
+
+if (checkoutButton) {
+
+    checkoutButton.addEventListener("click", () => {
+
+        const modal = document.getElementById("checkout-modal");
+
+        if (modal) {
+
+            modal.classList.add("show");
+
+        }
 
     });
 
 }
 
-/* ==========================================
-   GET LOWEST PRODUCT PRICE
-========================================== */
+// =====================================================
+// Close Checkout
+// =====================================================
 
-function getProductPrice(product) {
+const closeCheckout = document.getElementById("close-checkout");
 
-    const prices = [];
+if (closeCheckout) {
 
-    if (product.price)
-        prices.push(Number(product.price));
+    closeCheckout.addEventListener("click", () => {
 
-    if (product.single)
-        prices.push(Number(product.single));
-
-    if (product.regular)
-        prices.push(Number(product.regular));
-
-    if (product.large)
-        prices.push(Number(product.large));
-
-    return prices.length ? Math.min(...prices) : 0;
-
-}
-
-/* ==========================================
-   PRODUCT BADGES
-========================================== */
-
-function getProductBadge(product) {
-
-    if (product.bestseller)
-        return "🔥 Bestseller";
-
-    if (product.new)
-        return "🆕 New";
-
-    if (product.homemade)
-        return "❤️ Homemade";
-
-    return "";
-
-}
-
-/* ==========================================
-   ANIMATE PRODUCT CARDS
-========================================== */
-
-function animateCards() {
-
-    const cards = document.querySelectorAll(".product-card");
-
-    cards.forEach((card, index) => {
-
-        card.style.opacity = "0";
-        card.style.transform = "translateY(20px)";
-
-        setTimeout(() => {
-
-            card.style.transition = ".35s";
-
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0px)";
-
-        }, index * 40);
+        document
+            .getElementById("checkout-modal")
+            .classList
+            .remove("show");
 
     });
 
 }
 
-/* ==========================================
-   OPEN FIRST CATEGORY
-========================================== */
+// =====================================================
+// Checkout Form
+// =====================================================
+
+const checkoutForm = document.getElementById("checkout-form");
+
+if (checkoutForm) {
+
+    checkoutForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        if (typeof sendWhatsAppOrder === "function") {
+
+            sendWhatsAppOrder();
+
+        } else {
+
+            alert("cart.js not loaded.");
+
+        }
+
+    });
+
+}
+
+// =====================================================
+// Close Cart
+// =====================================================
+
+const closeCartButton = document.getElementById("close-cart");
+
+if (closeCartButton) {
+
+    closeCartButton.addEventListener("click", () => {
+
+        if (typeof closeCart === "function") {
+
+            closeCart();
+
+        }
+
+    });
+
+}
+
+// =====================================================
+// Overlay
+// =====================================================
+
+const overlay = document.getElementById("overlay");
+
+if (overlay) {
+
+    overlay.addEventListener("click", () => {
+
+        if (typeof closeCart === "function") {
+
+            closeCart();
+
+        }
+
+        document
+            .getElementById("checkout-modal")
+            ?.classList
+            .remove("show");
+
+    });
+
+}
+
+// =====================================================
+// Open first category after render
+// =====================================================
 
 function openFirstCategory() {
 
-    const firstCard =
-        document.querySelector(".category-card");
+    const firstBody = document.querySelector(".category-products");
 
-    if (!firstCard) return;
+    const firstToggle = document.querySelector(".toggle-btn");
 
-    firstCard.classList.add("open");
+    if (!firstBody) return;
 
-    const button =
-        firstCard.querySelector(".toggle-btn");
+    firstBody.classList.add("open");
 
-    if (button)
-        button.textContent = "−";
+    if (firstToggle) {
 
-}
+        firstToggle.innerHTML = "−";
 
-/* ==========================================
-   COLLAPSE OTHER CATEGORIES
-========================================== */
-
-function enableSingleAccordion() {
-
-    document.querySelectorAll(".category-header")
-        .forEach(header => {
-
-            header.addEventListener("click", () => {
-
-                const current =
-                    header.parentElement;
-
-                document
-                    .querySelectorAll(".category-card")
-                    .forEach(card => {
-
-                        if (card !== current) {
-
-                            card.classList.remove("open");
-
-                            const btn =
-                                card.querySelector(".toggle-btn");
-
-                            if (btn)
-                                btn.textContent = "+";
-
-                        }
-
-                    });
-
-            });
-
-        });
+    }
 
 }
 
-/* ==========================================
-   REFRESH UI
-========================================== */
+// =====================================================
+// Re-open first category after rendering
+// =====================================================
 
-function refreshUI() {
+const originalRenderProducts = renderProducts;
 
-    displayProducts(filteredProducts);
+renderProducts = function (products) {
 
-    animateCards();
+    originalRenderProducts(products);
 
     openFirstCategory();
-
-    enableSingleAccordion();
-
-}
-
-/* ==========================================
-   OVERRIDE DISPLAY FUNCTION
-========================================== */
-
-const originalDisplayProducts = displayProducts;
-
-displayProducts = function (list) {
-
-    originalDisplayProducts(list);
-
-    animateCards();
-
-    openFirstCategory();
-
-    enableSingleAccordion();
 
 };
 
-/* ==========================================
-   INITIALIZE SORTING
-========================================== */
+// =====================================================
+// Update Cart Count
+// =====================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+function updateCartBadge(count) {
 
-    initializeSorting();
+    const badge1 = document.getElementById("cart-count");
 
-});
+    const badge2 = document.getElementById("floating-cart-count");
 
-/* ==========================================
-   END OF app.js
-========================================== */
+    if (badge1) badge1.textContent = count;
 
+    if (badge2) badge2.textContent = count;
 
+}
+
+// =====================================================
+// Welcome
+// =====================================================
+
+console.log(
+    "🍦 Vamshi's Tasteuraa Loaded Successfully"
+);
 
 
