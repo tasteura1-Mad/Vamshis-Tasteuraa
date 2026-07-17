@@ -529,80 +529,59 @@ function bindCartButtons() {
     const closeCartBtn = document.getElementById("close-cart");
     const checkoutBtn = document.getElementById("checkout-btn");
     const closeCheckoutBtn = document.getElementById("close-checkout");
+    const checkoutModal = document.getElementById("checkout-modal");
     const overlay = document.getElementById("overlay");
     const checkoutForm = document.getElementById("checkout-form");
 
+    // Open Cart
     if (cartButton) {
         cartButton.addEventListener("click", () => {
-            if (typeof openCart === "function") {
-                openCart();
-            }
+            if (typeof openCart === "function") openCart();
         });
     }
 
     if (floatingCart) {
         floatingCart.addEventListener("click", () => {
-            if (typeof openCart === "function") {
-                openCart();
-            }
+            if (typeof openCart === "function") openCart();
         });
     }
 
+    // Close Cart
     if (closeCartBtn) {
         closeCartBtn.addEventListener("click", () => {
-            if (typeof closeCart === "function") {
-                closeCart();
-            }
+            if (typeof closeCart === "function") closeCart();
         });
     }
 
+    // Click outside cart
     if (overlay) {
-
         overlay.addEventListener("click", () => {
 
-            if (typeof closeCart === "function") {
+            if (typeof closeCart === "function") closeCart();
 
-                closeCart();
-
-            }
-
-            const modal = document.getElementById("checkout-modal");
-
-            if (modal) {
-
-                modal.classList.remove("show");
-
-            }
+            closeCheckout();
 
         });
-
     }
 
+    // Open Checkout
     if (checkoutBtn) {
-
-        checkoutBtn.addEventListener("click", () => {
-
-            const modal = document.getElementById("checkout-modal");
-
-            if (modal) {
-
-                modal.classList.add("show");
-
-            }
-
-        });
-
+        checkoutBtn.addEventListener("click", openCheckout);
     }
 
+    // Close Checkout (X button)
     if (closeCheckoutBtn) {
+        closeCheckoutBtn.addEventListener("click", closeCheckout);
+    }
 
-        closeCheckoutBtn.addEventListener("click", () => {
+    // Click outside checkout popup
+    if (checkoutModal) {
 
-            const modal = document.getElementById("checkout-modal");
+        checkoutModal.addEventListener("click", function (e) {
 
-            if (modal) {
+            if (e.target === checkoutModal) {
 
-                modal.classList.remove("show");
+                closeCheckout();
 
             }
 
@@ -610,6 +589,7 @@ function bindCartButtons() {
 
     }
 
+    // Place Order
     if (checkoutForm) {
 
         checkoutForm.addEventListener("submit", function (e) {
@@ -625,6 +605,34 @@ function bindCartButtons() {
         });
 
     }
+
+}
+
+// =====================================================
+// CHECKOUT FUNCTIONS
+// =====================================================
+
+function openCheckout() {
+
+    const modal = document.getElementById("checkout-modal");
+
+    if (!modal) return;
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+function closeCheckout() {
+
+    const modal = document.getElementById("checkout-modal");
+
+    if (!modal) return;
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow = "auto";
 
 }
 
