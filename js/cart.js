@@ -1,47 +1,31 @@
-// Your WhatsApp Number
-const whatsappNumber = "917337200322";
-
-// Cart Array
+// ======================================================
+// Vamshi's Tasteuraa Cart
+// ======================================================
 
 let cart = [];
 
-  function addToCart(productId, size = "regular") {
+// ------------------------------------------------------
+// Add Item
+// ------------------------------------------------------
 
-    const product = products.find(p => p.id == productId);
+function addItem(name, size, price) {
 
-    if (!product) return;
-
-    // Decide the price based on size
-    let selectedPrice;
-
-    if (product.price) {
-        selectedPrice = product.price;
-    } else {
-        selectedPrice = (size === "large") ? product.large : product.regular;
-    }
-
-    // Check if same product and same size already exists
     const existing = cart.find(item =>
-        item.id == productId &&
-        item.size == size
+        item.name === name &&
+        item.size === size
     );
 
     if (existing) {
 
-        existing.qty++;
+        existing.quantity++;
 
     } else {
 
         cart.push({
-
-            ...product,
-
-            qty: 1,
-
-            size: size,
-
-            price: selectedPrice
-
+            name,
+            size,
+            price,
+            quantity: 1
         });
 
     }
@@ -50,17 +34,29 @@ let cart = [];
 
 }
 
-function changeQty(id, change) {
+// ------------------------------------------------------
+// Increase Quantity
+// ------------------------------------------------------
 
-    const item = cart.find(i => i.id == id);
+function increaseItem(index) {
 
-    if (!item) return;
+    cart[index].quantity++;
 
-    item.qty += change;
+    updateCart();
 
-    if (item.qty <= 0) {
+}
 
-        cart = cart.filter(i => i.id != id);
+// ------------------------------------------------------
+// Decrease Quantity
+// ------------------------------------------------------
+
+function decreaseItem(index) {
+
+    cart[index].quantity--;
+
+    if (cart[index].quantity <= 0) {
+
+        cart.splice(index, 1);
 
     }
 
@@ -68,41 +64,154 @@ function changeQty(id, change) {
 
 }
 
+// ------------------------------------------------------
+// Remove Item
+// ------------------------------------------------------
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+
+}
+
+// ------------------------------------------------------
+// Cart Total
+// ------------------------------------------------------
+
+function getTotal() {
+
+    return cart.reduce((total, item) => {
+
+        return total + (item.price * item.quantity);
+
+    }, 0);
+
+}
+
+// ------------------------------------------------------
+// Total Items
+// ------------------------------------------------------
+
+function getItemCount() {
+
+    return cart.reduce((count, item) => {
+
+        return count + item.quantity;
+
+    }, 0);
+
+}
+
+// ------------------------------------------------------
+// Update Cart
+// ------------------------------------------------------
+
 function updateCart() {
-
-    const count = cart.reduce((sum, item) => sum + item.qty, 0);
-
-    document.getElementById("cart-count").innerText = count;
 
     const cartItems = document.getElementById("cart-items");
 
+    const total = document.getElementById("cart-total");
+
+    const subtotal = document.getElementById("cart-subtotal");
+
+    const summaryTotal = document.getElementById("summary-total");
+
+    const summaryItems = document.getElementById("summary-items");
+
     cartItems.innerHTML = "";
 
-    let total = 0;
+    if (cart.length === 0) {
 
-    cart.forEach(item => {
+        cartItems.innerHTML = `
 
-        const price = item.price ? item.price : item.regular;
+        <div style="text-align:center;padding:40px;color:#777;">
 
-        total += price * item.qty;
+            🛒<br><br>
+
+            Your cart is empty
+
+        </div>
+
+        `;
+
+    }
+
+    cart.forEach((item, index) => {
 
         cartItems.innerHTML += `
 
+        
         <div class="cart-item">
 
-        <h3>${item.name}</h3>
+            <div>
 
-    <p><b>${item.size.toUpperCase()}</b></p>
+                <div class="cart-item-name">
 
-    <p>₹${price}</p>
+                    ${item.name}
 
-            <div class="qty-controls">
+                </div>
 
-                <button onclick="changeQty(${item.id},-1)">−</button>
+                <div class="cart-item-size">
 
-                <span>${item.qty}</span>
+                    ${item.size}
 
-                <button onclick="changeQty(${item.id},1)">+</button>
+                </div>
+
+                <div style="margin-top:8px;font-weight:600;">
+
+                    ₹${item.price}
+
+                </div>
+
+            </div>
+
+            <div style="text-align:right;">
+
+                <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;">
+
+                    <button
+                        onclick="decreaseItem(${index})"
+                        style="width:28px;height:28px;border:none;border-radius:50%;background:#F59E0B;color:#fff;cursor:pointer;">
+
+                        -
+
+                    </button>
+
+                    <strong>
+
+                        ${item.quantity}
+
+                    </strong>
+
+                    <button
+                        onclick="increaseItem(${index})"
+                        style="width:28px;height:28px;border:none;border-radius:50%;background:#22c55e;color:#fff;cursor:pointer;">
+
+                        +
+
+                    </button>
+
+                </div>
+
+                <div style="margin-top:10px;">
+
+                    <strong>
+
+                        ₹${item.price * item.quantity}
+
+                    </strong>
+
+                </div>
+
+                <button
+                    onclick="removeItem(${index})"
+                    style="margin-top:8px;border:none;background:none;color:#ef4444;cursor:pointer;">
+
+                    Remove
+
+                </button>
 
             </div>
 
@@ -112,34 +221,88 @@ function updateCart() {
 
     });
 
-    document.getElementById("cart-total").innerText = "₹" + total;
+    const totalAmount = getTotal();
 
-}
+    subtotal.textContent = "₹" + totalAmount;
 
-// Make functions available to HTML onclick handlers
-window.addToCart = addToCart;
-window.changeQty = changeQty;
+    total.textContent = "₹" + totalAmount;
 
-document.getElementById("send-whatsapp").addEventListener("click", sendToWhatsApp);
+    summaryTotal.textContent = "₹" + totalAmount;
 
-function sendToWhatsApp() {
+    summaryItems.textContent = getItemCount();
 
-    const name = document.getElementById("customer-name").value.trim();
-    const phone = document.getElementById("customer-phone").value.trim();
-    const address = document.getElementById("customer-address").value.trim();
-    const landmark = document.getElementById("customer-landmark").value.trim();
-    const delivery = document.getElementById("delivery-type").value;
-    const note = document.getElementById("special-note").value.trim();
+    if (typeof updateCartBadge === "function") {
 
-    if(name === "" || phone === ""){
-
-        alert("Please enter your Name and Mobile Number.");
-
-        return;
+        updateCartBadge(getItemCount());
 
     }
 
-    if(cart.length === 0){
+}
+
+// ------------------------------------------------------
+// Open Cart
+// ------------------------------------------------------
+
+function openCart() {
+
+    document
+        .getElementById("cart-panel")
+        .classList
+        .add("open");
+
+    document
+        .getElementById("overlay")
+        .classList
+        .add("show");
+
+}
+
+// ------------------------------------------------------
+// Close Cart
+// ------------------------------------------------------
+
+function closeCart() {
+
+    document
+        .getElementById("cart-panel")
+        .classList
+        .remove("open");
+
+    document
+        .getElementById("overlay")
+        .classList
+        .remove("show");
+
+}
+
+// ------------------------------------------------------
+// Cart Buttons
+// ------------------------------------------------------
+
+const cartButton = document.getElementById("cartButton");
+
+if (cartButton) {
+
+    cartButton.addEventListener("click", openCart);
+
+}
+
+const floatingCart = document.getElementById("floating-cart");
+
+if (floatingCart) {
+
+    floatingCart.addEventListener("click", openCart);
+
+}
+
+
+// ------------------------------------------------------
+// WhatsApp Order
+// ------------------------------------------------------
+
+function sendWhatsAppOrder() {
+
+    if (cart.length === 0) {
 
         alert("Your cart is empty.");
 
@@ -147,56 +310,103 @@ function sendToWhatsApp() {
 
     }
 
-    let message = `🍦 *Vamshi's Tasteuraa*%0A`;
-    message += `Premium Homemade Ice Creams%0A%0A`;
+    const name = document.getElementById("customer-name").value.trim();
+    const phone = document.getElementById("customer-phone").value.trim();
+    const deliveryType = document.getElementById("delivery-type").value;
+    const address = document.getElementById("customer-address").value.trim();
+    const landmark = document.getElementById("customer-landmark").value.trim();
+    const note = document.getElementById("special-note").value.trim();
 
-    message += `*Customer Details*%0A`;
-    message += `👤 Name : ${name}%0A`;
-    message += `📞 Phone : ${phone}%0A`;
-    message += `📍 Address : ${address}%0A`;
-    message += `🏠 Landmark : ${landmark}%0A`;
-    message += `🚚 Delivery : ${delivery}%0A`;
+    if (name === "") {
 
-    if(note !== ""){
-        message += `📝 Instructions : ${note}%0A`;
+        alert("Please enter your name.");
+
+        return;
+
     }
 
-    message += `%0A------------------------%0A`;
+    if (phone.length < 10) {
 
-    message += `*Order Details*%0A`;
+        alert("Please enter a valid mobile number.");
 
-    let total = 0;
+        return;
 
-    cart.forEach(item=>{
+    }
 
-        const price = item.price;
+    let message = "*🍦 Vamshi's Tasteuraa Order*%0A%0A";
 
-        total += price * item.qty;
+    message += "*Customer:* " + name + "%0A";
+    message += "*Mobile:* " + phone + "%0A";
+    message += "*Order Type:* " + deliveryType + "%0A";
 
-        message += `• ${item.name}`;
+    if (deliveryType === "Delivery") {
 
-        if(item.size){
+        message += "*Address:* " + address + "%0A";
 
-            message += ` (${item.size})`;
+        if (landmark !== "") {
+
+            message += "*Landmark:* " + landmark + "%0A";
 
         }
 
-        message += ` x ${item.qty}`;
+    }
 
-        message += ` - ₹${price * item.qty}%0A`;
+    if (note !== "") {
+
+        message += "*Instructions:* " + note + "%0A";
+
+    }
+
+    message += "%0A*Items Ordered*%0A";
+
+    cart.forEach(item => {
+
+        message += "• " +
+            item.name +
+            " (" +
+            item.size +
+            ") x " +
+            item.quantity +
+            " = ₹" +
+            (item.price * item.quantity) +
+            "%0A";
 
     });
 
-    message += `%0A------------------------%0A`;
+    message += "%0A*Total:* ₹" + getTotal();
 
-    message += `💰 *Total : ₹${total}*%0A%0A`;
+    const whatsappNumber = "917337200322";
 
-    message += `Please confirm item availability.%0A`;
+    window.open(
+        "https://wa.me/" + whatsappNumber + "?text=" + message,
+        "_blank"
+    );
 
-    message += `Once confirmed, I will make the payment.%0A`;
+    cart = [];
 
-    const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+    updateCart();
 
-    window.open(url,"_blank");
+    closeCart();
+
+    document
+        .getElementById("checkout-modal")
+        .classList
+        .remove("show");
+
+    document
+        .getElementById("checkout-form")
+        .reset();
 
 }
+
+// ------------------------------------------------------
+// Initialize Cart
+// ------------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    updateCart();
+
+});
+
+console.log("🛒 Cart Loaded Successfully");
