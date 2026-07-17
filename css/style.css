@@ -6,7 +6,7 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#24120b;
+background:#D4A574;
 color:white;
 }
 
@@ -15,7 +15,7 @@ color:white;
 position:sticky;
 top:0;
 
-background:#31190f;
+background:#C49060;
 
 display:flex;
 
@@ -151,7 +151,7 @@ padding-bottom:20px;
 
 .category{
 
-background:#442518;
+background:#B8956A;
 
 color:white;
 
@@ -193,7 +193,7 @@ gap:25px;
 
 .product{
 
-background:#362015;
+background:#C4956B;
 
 border-radius:20px;
 
@@ -302,7 +302,7 @@ width:400px;
 
 height:100vh;
 
-background:#2e170f;
+background:#B8956A;
 
 padding:25px;
 
@@ -322,7 +322,7 @@ right:0;
 
 .cart-item{
 
-background:#45261a;
+background:#A6805F;
 
 padding:15px;
 
@@ -393,7 +393,7 @@ width:400px;
 
 height:100%;
 
-background:#2d170f;
+background:#B8956A;
 
 padding:25px;
 
@@ -415,7 +415,7 @@ right:0;
 
 .cart-item{
 
-background:#45261a;
+background:#A6805F;
 
 padding:15px;
 
@@ -660,7 +660,7 @@ color:#ff4d6d;
 
     font-size:70px;
 
-    background:#4b2c1d;
+    background:#A6805F;
 
     border-radius:15px;
 
@@ -690,7 +690,7 @@ gap:20px;
 
 .feature-card{
 
-background:#362015;
+background:#C4956B;
 
 padding:20px;
 
@@ -769,7 +769,7 @@ gap:25px;
 
 .special-card{
 
-background:linear-gradient(135deg,#4b2c1d,#2f180f);
+background:linear-gradient(135deg,#C4956B,#A6805F);
 
 padding:30px;
 
@@ -891,7 +891,7 @@ width:90%;
 
 max-width:500px;
 
-background:#2d170f;
+background:#B8956A;
 
 padding:25px;
 
