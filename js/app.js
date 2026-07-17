@@ -173,7 +173,7 @@ function getCategoryIcon(category){
 
 // Check if category is ice cream
 function isIceCreamCategory(category){
-    return category.toLowerCase().includes("ice cream");
+    return category === "Ice Cream Box" || category === "Ice Cream Scoops";
 }
 
 // ==========================
@@ -196,7 +196,7 @@ function displayProducts(list) {
             ? '<span class="badge bestseller">⭐ Bestseller</span>'
             : '';
 
-        // Show homemade badge only for ice cream items
+        // Show homemade badge ONLY for exact ice cream categories
         const homemade = isIceCreamCategory(product.category)
             ? '<span class="badge homemade">🏠 Homemade</span>'
             : '';
