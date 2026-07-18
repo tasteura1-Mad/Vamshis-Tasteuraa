@@ -1496,6 +1496,65 @@ a{
 
 }
 
+/* =====================================
+        DELIVERY
+===================================== */
+
+.delivery{
+
+    padding:80px 0;
+
+    background:#FFF8F0;
+
+}
+
+.delivery-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+.delivery-card{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.delivery-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.delivery-card h3{
+
+    color:#5B371E;
+
+    margin-bottom:15px;
+
+}
+
+.delivery-card p{
+
+    color:#555;
+
+    line-height:1.7;
+
+}
+
+
 /* ======================================================
                 GOOGLE REVIEWS
 ====================================================== */
