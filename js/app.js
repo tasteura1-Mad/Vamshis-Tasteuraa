@@ -347,173 +347,97 @@ function renderProducts(products) {
 function createProductCard(product) {
 
     const card = document.createElement("div");
-
     card.className = "product-card";
 
-    const icon =
+    const icon = categoryIcons[product.category] || "🍽️";
 
-        categoryIcons[product.category] || "🍽️";
-
-    let html = "";
-
-    // Regular & Large
-
-    if (product.regular && product.large) {
-
-        html = `
-
-            <div class="product-price">
-
-                <span>Regular</span>
-
-                <strong>₹${product.regular}</strong>
-
-            </div>
-
-            <button
-                class="add-btn regular-btn">
-
-                Add Regular
-
-            </button>
-
-            <div class="product-price">
-
-                <span>Large</span>
-
-                <strong>₹${product.large}</strong>
-
-            </div>
-
-            <button
-                class="add-btn large-btn">
-
-                Add Large
-
-            </button>
-
-        `;
-
-    }
-
-    // Single Price
-
-    else {
-
-        const price =
-
-            product.price ||
-
-            product.single ||
-
-            0;
-
-        html = `
-
-            <div class="product-price">
-
-                <span>Price</span>
-
-                <strong>₹${price}</strong>
-
-            </div>
-
-            <button
-                class="add-btn single-btn">
-
-                Add To Cart
-
-            </button>
-
-        `;
-
-    }
+    const defaultSize = product.sizes[0];
 
     card.innerHTML = `
 
         <div class="product-image">
-
             ${icon}
-
         </div>
 
         <div class="product-name">
-
             ${product.name}
+        </div>
+
+        <div class="product-size">
+
+            <label>Size</label>
+
+            <select class="size-select">
+
+                ${product.sizes.map(size=>`
+
+                    <option
+                        value="${size.label}"
+                        data-price="${size.price}">
+
+                        ${size.label}
+
+                    </option>
+
+                `).join("")}
+
+            </select>
 
         </div>
 
-        ${html}
+        <div class="product-price">
+
+            ₹<span class="price">
+
+                ${defaultSize.price}
+
+            </span>
+
+        </div>
+
+        <button class="add-btn">
+
+            🛒 Add To Cart
+
+        </button>
 
     `;
 
-    // ---------- IMPORTANT FIX ----------
+    const sizeSelect =
+        card.querySelector(".size-select");
 
-    const regularButton =
+    const price =
+        card.querySelector(".price");
 
-        card.querySelector(".regular-btn");
+    sizeSelect.addEventListener("change",function(){
 
-    if (regularButton) {
+        const selected =
+            this.options[this.selectedIndex];
 
-        regularButton.addEventListener("click", () => {
+        price.textContent =
+            selected.dataset.price;
 
-            addItem(
+    });
 
-                product.name,
+    const addButton =
+        card.querySelector(".add-btn");
 
-                "Regular",
+    addButton.addEventListener("click",()=>{
 
-                Number(product.regular)
+        const selected =
+            sizeSelect.options[sizeSelect.selectedIndex];
 
-            );
+        addItem(
 
-        });
+            product.name,
 
-    }
+            selected.value,
 
-    const largeButton =
+            Number(selected.dataset.price)
 
-        card.querySelector(".large-btn");
+        );
 
-    if (largeButton) {
-
-        largeButton.addEventListener("click", () => {
-
-            addItem(
-
-                product.name,
-
-                "Large",
-
-                Number(product.large)
-
-            );
-
-        });
-
-    }
-
-    const singleButton =
-
-        card.querySelector(".single-btn");
-
-    if (singleButton) {
-
-        singleButton.addEventListener("click", () => {
-
-            addItem(
-
-                product.name,
-
-                "Regular",
-
-                Number(product.price || product.single)
-
-            );
-
-        });
-
-    }
+    });
 
     return card;
 
