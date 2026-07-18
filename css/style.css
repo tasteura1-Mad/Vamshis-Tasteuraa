@@ -1722,6 +1722,68 @@ a{
 
 }
 
+/*=====================================
+            ABOUT
+======================================*/
+
+.about{
+
+    padding:80px 0;
+
+    background:#fffdf8;
+
+}
+
+.about-content{
+
+    max-width:900px;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+.about-tag{
+
+    display:inline-block;
+
+    background:#FFF3D9;
+
+    color:#F59E0B;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+.about h2{
+
+    font-size:42px;
+
+    color:#6B3E26;
+
+    margin-bottom:25px;
+
+}
+
+.about p{
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    color:#555;
+
+    margin-bottom:18px;
+
+}
+
 
 
 
