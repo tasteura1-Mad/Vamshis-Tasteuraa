@@ -14,8 +14,21 @@ html{
 }
 
 body{
-    background:#FFF9F2 url("../images/doodles-transparent.png") repeat;
+
+    font-family:'Poppins',sans-serif;
+
+    background-color:#FFF9F2;
+
+    background-image:url("../images/doodles-bg.png");
+
+    background-repeat:repeat;
+
     background-size:650px;
+
+    background-attachment:fixed;
+
+    color:#333;
+
 }
 
 img{
