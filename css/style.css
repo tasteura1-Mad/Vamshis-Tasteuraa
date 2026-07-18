@@ -242,10 +242,6 @@ a{
 
     background:linear-gradient(135deg,#FFF6E7,#FFE9C8);
 
-    padding:70px 0;
-
-    overflow:hidden;
-
 }
 
 .hero-grid{
@@ -2177,6 +2173,25 @@ a{
     margin-bottom:18px;
 
 }
+
+/* =====================================
+        CONTENT BACKGROUND
+===================================== */
+
+.content-background{
+
+    background-color:#FFF9F2;
+
+    background-image:url("../images/doodles-bg.png");
+
+    background-repeat:repeat;
+
+    background-size:500px;
+
+    background-attachment:fixed;
+
+}
+
 /* =====================================
         FOOTER SOCIAL
 ===================================== */
