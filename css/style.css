@@ -1950,6 +1950,22 @@ a{
       CONTACT CARDS
 ===================================== */
 
+/* =====================================
+      CONTACT CARDS
+===================================== */
+
+.contact-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-top:40px;
+
+}
+
 .map-card{
 
     display:block;
@@ -1960,13 +1976,33 @@ a{
 
     transition:.3s ease;
 
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:22px 18px;
+
+    min-height:240px;
+
+    text-align:center;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+
 }
 
 .map-card:hover{
 
     transform:translateY(-6px);
 
-    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.map-card i{
+
+    font-size:42px;
+
+    margin-bottom:16px;
 
 }
 
@@ -1976,15 +2012,19 @@ a{
 
     margin-bottom:12px;
 
+    font-size:28px;
+
 }
 
 .map-card p{
 
     color:#444;
 
-    font-size:18px;
+    font-size:17px;
 
-    line-height:1.6;
+    line-height:1.5;
+
+    margin:0;
 
 }
 
@@ -1996,7 +2036,7 @@ a{
 
     color:#FF9800;
 
-    font-size:14px;
+    font-size:15px;
 
     font-weight:600;
 
