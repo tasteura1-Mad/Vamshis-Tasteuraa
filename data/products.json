@@ -23,7 +23,6 @@
     "large": 109,
     "type": "veg"
   },
-
   {
     "id": 4,
     "category": "Momos (Fried)",
@@ -48,7 +47,6 @@
     "large": 149,
     "type": "nonveg"
   },
-
   {
     "id": 7,
     "category": "Veg Bites",
@@ -81,7 +79,6 @@
     "large": 149,
     "type": "veg"
   },
-
   {
     "id": 11,
     "category": "Non-Veg Bites",
@@ -130,7 +127,6 @@
     "large": 189,
     "type": "nonveg"
   },
-
   {
     "id": 17,
     "category": "Burger",
@@ -159,7 +155,6 @@
     "regular": 119,
     "type": "nonveg"
   },
-
   {
     "id": 21,
     "category": "Combos",
@@ -191,19 +186,18 @@
   {
     "id": 25,
     "category": "Combos",
-    "name": "Veg Cheese Burger + Vanilla/Chocolate Milk Shake",
+    "name": "Veg Cheese Burger + Milk Shake (Vanilla or Chocolate)",
     "regular": 209,
     "type": "veg"
   },
   {
     "id": 26,
     "category": "Combos",
-    "name": "Chicken Cheese Burger + Vanilla/Chocolate Milk Shake",
+    "name": "Chicken Cheese Burger + Milk Shake (Vanilla or Chocolate)",
     "regular": 219,
     "type": "nonveg"
   },
-
-  {
+    {
     "id": 27,
     "category": "Maggi",
     "name": "Plain Maggi",
@@ -238,7 +232,6 @@
     "regular": 99,
     "type": "nonveg"
   },
-
   {
     "id": 32,
     "category": "Special",
@@ -246,7 +239,6 @@
     "regular": 149,
     "type": "nonveg"
   },
-
   {
     "id": 33,
     "category": "Beverages",
@@ -303,7 +295,6 @@
     "regular": 109,
     "type": "veg"
   },
-
   {
     "id": 41,
     "category": "Boba Shakes",
@@ -332,7 +323,6 @@
     "regular": 169,
     "type": "veg"
   },
-
   {
     "id": 45,
     "category": "Classic Mojito",
@@ -382,7 +372,6 @@
     "regular": 69,
     "type": "veg"
   },
-
   {
     "id": 52,
     "category": "HomeMade Gelato Ice Cream",
@@ -390,7 +379,7 @@
     "regular": 30,
     "type": "veg"
   },
-  {
+    {
     "id": 53,
     "category": "HomeMade Gelato Ice Cream",
     "name": "Mango (250ml)",
@@ -411,7 +400,6 @@
     "regular": 249,
     "type": "veg"
   },
-
   {
     "id": 56,
     "category": "HomeMade Gelato Ice Cream",
@@ -440,7 +428,6 @@
     "regular": 249,
     "type": "veg"
   },
-
   {
     "id": 60,
     "category": "HomeMade Gelato Ice Cream",
@@ -469,7 +456,6 @@
     "regular": 249,
     "type": "veg"
   },
-
   {
     "id": 64,
     "category": "HomeMade Gelato Ice Cream",
@@ -498,7 +484,6 @@
     "regular": 249,
     "type": "veg"
   },
-
   {
     "id": 68,
     "category": "HomeMade Gelato Ice Cream",
@@ -527,7 +512,6 @@
     "regular": 249,
     "type": "veg"
   },
-
   {
     "id": 72,
     "category": "HomeMade Gelato Ice Cream",
@@ -556,7 +540,6 @@
     "regular": 249,
     "type": "veg"
   },
-
   {
     "id": 76,
     "category": "HomeMade Gelato Ice Cream",
@@ -578,7 +561,7 @@
     "regular": 129,
     "type": "veg"
   },
-  {
+    {
     "id": 79,
     "category": "HomeMade Gelato Ice Cream",
     "name": "Guava (1 Ltr)",
@@ -750,6 +733,9 @@
     "type": "veg"
   }
 ]
+
+
+
 
 
   
