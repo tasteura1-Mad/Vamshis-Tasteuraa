@@ -1025,13 +1025,14 @@ a{
     display:none;
 
     justify-content:center;
-    align-items:center;
 
-    background:rgba(0,0,0,.55);
+    align-items:flex-start;   /* <-- change from center */
 
-    padding:20px;
+    padding:30px 20px;
 
     overflow-y:auto;
+
+    background:rgba(0,0,0,.55);
 
     z-index:9999;
 
@@ -1047,18 +1048,17 @@ a{
 
     background:#fff;
 
-    width:100%;
-    max-width:480px;
+    width:95%;
 
-    max-height:85vh;
+    max-width:500px;
 
-    overflow-y:auto;
+    margin:20px auto;      /* important */
+
+    max-height:none;        /* remove 85vh */
 
     border-radius:18px;
 
-    box-shadow:0 20px 60px rgba(0,0,0,.25);
-
-    animation:popup .25s ease;
+    overflow:visible;
 
 }
 
@@ -1131,7 +1131,15 @@ a{
 
 }
 
-.form-group{
+#checkout-form{
+
+    padding:20px;
+
+    max-height:70vh;
+
+    overflow-y:auto;
+
+}.form-group{
 
     margin-bottom:15px;
 
