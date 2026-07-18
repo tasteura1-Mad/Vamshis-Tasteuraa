@@ -1486,6 +1486,73 @@ a{
 }
 
 }
+/* =====================================
+      CONTACT CARDS
+===================================== */
+
+.map-card{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:inherit;
+
+    transition:.3s ease;
+
+}
+
+.map-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+
+}
+
+.map-card h3{
+
+    color:#5B371E;
+
+    margin-bottom:12px;
+
+}
+
+.map-card p{
+
+    color:#444;
+
+    font-size:18px;
+
+    line-height:1.6;
+
+}
+
+.map-text{
+
+    display:block;
+
+    margin-top:12px;
+
+    color:#FF9800;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.map-card:hover h3{
+
+    color:#FF9800;
+
+}
+
+
+
+
+
+
 
 
 
