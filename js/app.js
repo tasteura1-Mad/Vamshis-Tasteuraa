@@ -355,12 +355,32 @@ function createProductCard(product) {
 
     card.innerHTML = `
 
-        <div class="product-image">
-            ${icon}
+        <div class="product-top">
+
+            <div class="product-icon">
+                ${icon}
+            </div>
+
+            ${product.isBestseller
+                ? `<span class="badge bestseller">⭐ Bestseller</span>`
+                : ""}
+
         </div>
 
         <div class="product-name">
             ${product.name}
+        </div>
+
+        <div class="product-description">
+            ${product.description || ""}
+        </div>
+
+        <div class="product-type">
+
+            ${product.type === "veg"
+                ? `<span class="veg">🟢 Veg</span>`
+                : `<span class="nonveg">🔴 Non-Veg</span>`}
+
         </div>
 
         <div class="product-size">
@@ -369,13 +389,13 @@ function createProductCard(product) {
 
             <select class="size-select">
 
-                ${product.sizes.map(size=>`
+                ${product.sizes.map(size => `
 
                     <option
-                        value="${size.label}"
+                        value="${size.size}"
                         data-price="${size.price}">
 
-                        ${size.label}
+                        ${size.size}
 
                     </option>
 
@@ -395,6 +415,16 @@ function createProductCard(product) {
 
         </div>
 
+        <div class="qty-box">
+
+            <button class="minus">−</button>
+
+            <span class="qty">1</span>
+
+            <button class="plus">+</button>
+
+        </div>
+
         <button class="add-btn">
 
             🛒 Add To Cart
@@ -403,41 +433,57 @@ function createProductCard(product) {
 
     `;
 
-    const sizeSelect =
-        card.querySelector(".size-select");
+    const sizeSelect = card.querySelector(".size-select");
+    const price = card.querySelector(".price");
 
-    const price =
-        card.querySelector(".price");
+    sizeSelect.addEventListener("change", function () {
 
-    sizeSelect.addEventListener("change",function(){
+        const option = this.options[this.selectedIndex];
 
-        const selected =
-            this.options[this.selectedIndex];
-
-        price.textContent =
-            selected.dataset.price;
+        price.textContent = option.dataset.price;
 
     });
 
-    const addButton =
-        card.querySelector(".add-btn");
+    let qty = 1;
 
-    addButton.addEventListener("click",()=>{
+    const qtySpan = card.querySelector(".qty");
 
-        const selected =
+    card.querySelector(".minus").onclick = () => {
+
+        if (qty > 1) {
+
+            qty--;
+
+            qtySpan.textContent = qty;
+
+        }
+
+    };
+
+    card.querySelector(".plus").onclick = () => {
+
+        qty++;
+
+        qtySpan.textContent = qty;
+
+    };
+
+    card.querySelector(".add-btn").onclick = () => {
+
+        const option =
             sizeSelect.options[sizeSelect.selectedIndex];
 
-        addItem(
+        for (let i = 0; i < qty; i++) {
 
-            product.name,
+            addItem(
+                product.name,
+                option.value,
+                Number(option.dataset.price)
+            );
 
-            selected.value,
+        }
 
-            Number(selected.dataset.price)
-
-        );
-
-    });
+    };
 
     return card;
 
