@@ -1,30 +1,28 @@
 // =====================================================
 // Vamshi's Tasteuraa
-// app.js
+// Corrected app.js
 // =====================================================
 
 let allProducts = [];
 let filteredProducts = [];
 let currentCategory = "All";
 
-// Keys MUST match the "category" values in products.json exactly
 const categoryIcons = {
-    "French Fries": "🍟",
-    "Momos (Fried)": "🥟",
-    "Veg Bites": "🥗",
-    "Non-Veg Bites": "🍗",
-    "Burger": "🍔",
-    "Maggi": "🍜",
-    "Special": "🔥",
-    "Beverages": "☕",
-    "Boba Coolers": "🧋",
-    "Boba Shakes": "🧋",
-    "Classic Mojito": "🍹",
-    "Ice Cream Box": "🍨",
-    "Ice Cream Scoops": "🍦",
+    "Ice Creams": "🍨",
+    "Scoops": "🍦",
+    "Ice Cream Boxes": "🍧",
     "Milk Shakes": "🥤",
     "Thick Shakes": "🥛",
-    "Toppings": "✨"
+    "Boba Shakes": "🧋",
+    "Boba Coolers": "🧋",
+    "Mojitos": "🍹",
+    "French Fries": "🍟",
+    "Veg Bites": "🥟",
+    "Non Veg Bites": "🍗",
+    "Momos": "🥟",
+    "Burgers": "🍔",
+    "Maggi": "🍜",
+    "Specials": "⭐"
 };
 
 document.addEventListener("DOMContentLoaded", init);
@@ -35,16 +33,11 @@ async function init() {
 
     bindSearch();
 
-    bindSort();
-
     bindCartButtons();
 
 }
 
 async function loadProducts() {
-
-    const container = document.getElementById("category-products");
-    if (container) container.innerHTML = `<p class="status-msg">Loading menu... 🍦</p>`;
 
     try {
 
@@ -69,10 +62,6 @@ async function loadProducts() {
 
         console.error(err);
 
-        if (container) {
-            container.innerHTML = `<p class="status-msg error">⚠️ Sorry, we couldn't load the menu. Please refresh the page or try again shortly.</p>`;
-        }
-
     }
 
 }
@@ -83,17 +72,26 @@ function bindSearch() {
 
     if (!search) return;
 
-    search.addEventListener("input", applyFilters);
+    search.addEventListener("input", () => {
 
-}
+        const keyword = search.value.trim().toLowerCase();
 
-function bindSort() {
+        filteredProducts = allProducts.filter(product => {
 
-    const sort = document.getElementById("sort");
+            const categoryMatch =
+                currentCategory === "All" ||
+                product.category === currentCategory;
 
-    if (!sort) return;
+            const searchMatch =
+                product.name.toLowerCase().includes(keyword);
 
-    sort.addEventListener("change", applyFilters);
+            return categoryMatch && searchMatch;
+
+        });
+
+        renderProducts(filteredProducts);
+
+    });
 
 }
 
@@ -159,8 +157,6 @@ function createButton(text, category) {
 
 }
 
-// Single source of truth for filtering + sorting (search input, sort dropdown,
-// and category buttons all funnel through here)
 function applyFilters() {
 
     const keyword =
@@ -173,8 +169,6 @@ function applyFilters() {
 
         .toLowerCase() || "";
 
-    const sortValue = document.getElementById("sort")?.value || "default";
-
     filteredProducts = allProducts.filter(product => {
 
         const categoryMatch =
@@ -182,36 +176,15 @@ function applyFilters() {
             product.category === currentCategory;
 
         const searchMatch =
-            product.name.toLowerCase().includes(keyword) ||
-            product.category.toLowerCase().includes(keyword);
+            product.name.toLowerCase().includes(keyword);
 
         return categoryMatch && searchMatch;
 
     });
 
-    const priceOf = (product) => {
-        if (product.sizes && product.sizes.length) return product.sizes[0].price;
-        return product.price ?? product.regular ?? 0;
-    };
-
-    if (sortValue === "low") {
-
-        filteredProducts.sort((a, b) => priceOf(a) - priceOf(b));
-
-    } else if (sortValue === "high") {
-
-        filteredProducts.sort((a, b) => priceOf(b) - priceOf(a));
-
-    } else if (sortValue === "name") {
-
-        filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
-
-    }
-
     renderProducts(filteredProducts);
 
 }
-
 // =====================================================
 // Render Products
 // =====================================================
@@ -229,7 +202,7 @@ function renderProducts(products) {
         container.innerHTML = `
             <div class="no-products">
                 <h2>😔 No Products Found</h2>
-                <p>Please try another search or category.</p>
+                <p>Please try another search.</p>
             </div>
         `;
 
@@ -280,7 +253,7 @@ function renderProducts(products) {
         </div>
 
         <div
-            class="category-products-body"
+            class="category-products"
             id="${bodyId}">
 
         </div>
@@ -289,13 +262,15 @@ function renderProducts(products) {
 
         container.appendChild(card);
 
-        const body = card.querySelector(".category-products-body");
+        const body = card.querySelector(".category-products");
+
         const toggle = card.querySelector(".toggle-btn");
+
         const header = card.querySelector(".category-header");
 
         header.addEventListener("click", () => {
 
-            document.querySelectorAll(".category-products-body")
+            document.querySelectorAll(".category-products")
                 .forEach(section => {
 
                     if (section !== body) {
@@ -341,12 +316,27 @@ function renderProducts(products) {
 
     });
 
-    // Open first category by default
-    const firstBody = document.querySelector(".category-products-body");
-    const firstToggle = document.querySelector(".toggle-btn");
+    // Open first category
 
-    if (firstBody) firstBody.classList.add("open");
-    if (firstToggle) firstToggle.textContent = "−";
+    const firstCategory =
+
+        document.querySelector(".category-products");
+
+    const firstToggle =
+
+        document.querySelector(".toggle-btn");
+
+    if (firstCategory) {
+
+        firstCategory.classList.add("open");
+
+    }
+
+    if (firstToggle) {
+
+        firstToggle.textContent = "−";
+
+    }
 
 }
 
@@ -361,18 +351,15 @@ function createProductCard(product) {
 
     const icon = categoryIcons[product.category] || "🍽️";
 
-    // Support sizes[], regular/large, or a single price field
+    // Support both new and old JSON formats
     const sizes = product.sizes && product.sizes.length
         ? product.sizes
-        : (product.regular != null)
-            ? [
-                { size: "Regular", price: product.regular },
-                ...(product.large != null ? [{ size: "Large", price: product.large }] : [])
-              ]
-            : [{ size: "Regular", price: product.price ?? 0 }];
+        : [{
+            size: "Regular",
+            price: product.price || product.single || 0
+        }];
 
     const defaultSize = sizes[0];
-    const isBestseller = product.isBestseller || product.id <= 10;
 
     card.innerHTML = `
 
@@ -380,7 +367,7 @@ function createProductCard(product) {
 
             <div class="product-icon">${icon}</div>
 
-            ${isBestseller
+            ${product.isBestseller
                 ? '<span class="badge bestseller">⭐ Bestseller</span>'
                 : ''}
 
@@ -400,7 +387,6 @@ function createProductCard(product) {
                 : '<span class="veg">🟢 Veg</span>'}
         </div>
 
-        ${sizes.length > 1 ? `
         <div class="product-size">
 
             <label>Size</label>
@@ -411,23 +397,22 @@ function createProductCard(product) {
                     <option
                         value="${s.size}"
                         data-price="${s.price}">
-                        ${s.size} — ₹${s.price}
+                        ${s.size}
                     </option>
                 `).join("")}
 
             </select>
 
         </div>
-        ` : ''}
 
         <div class="product-price">
             ₹<span class="price">${defaultSize.price}</span>
         </div>
 
         <div class="qty-box">
-            <button class="minus" aria-label="Decrease quantity">−</button>
+            <button class="minus">−</button>
             <span class="qty">1</span>
-            <button class="plus" aria-label="Increase quantity">+</button>
+            <button class="plus">+</button>
         </div>
 
         <button class="add-btn">
@@ -439,16 +424,12 @@ function createProductCard(product) {
     const sizeSelect = card.querySelector(".size-select");
     const price = card.querySelector(".price");
 
-    if (sizeSelect) {
+    sizeSelect.addEventListener("change", function () {
 
-        sizeSelect.addEventListener("change", function () {
+        const option = this.options[this.selectedIndex];
+        price.textContent = option.dataset.price;
 
-            const option = this.options[this.selectedIndex];
-            price.textContent = option.dataset.price;
-
-        });
-
-    }
+    });
 
     let qty = 1;
 
@@ -470,36 +451,19 @@ function createProductCard(product) {
 
     };
 
-    const addBtn = card.querySelector(".add-btn");
+    card.querySelector(".add-btn").onclick = () => {
 
-    addBtn.onclick = () => {
-
-        const selectedSize = sizeSelect
-            ? sizeSelect.options[sizeSelect.selectedIndex]
-            : { value: defaultSize.size, dataset: { price: defaultSize.price } };
+        const option = sizeSelect.options[sizeSelect.selectedIndex];
 
         for (let i = 0; i < qty; i++) {
 
             addItem(
                 product.name,
-                selectedSize.value,
-                Number(selectedSize.dataset.price)
+                option.value,
+                Number(option.dataset.price)
             );
 
         }
-
-        // reset qty and give quick visual feedback
-        qty = 1;
-        qtySpan.textContent = qty;
-
-        const originalText = addBtn.textContent;
-        addBtn.textContent = "✅ Added";
-        addBtn.disabled = true;
-
-        setTimeout(() => {
-            addBtn.textContent = originalText;
-            addBtn.disabled = false;
-        }, 700);
 
     };
 
@@ -508,7 +472,7 @@ function createProductCard(product) {
 }
 
 // =====================================================
-// CART & CHECKOUT BUTTON BINDINGS
+// CART & CHECKOUT
 // =====================================================
 
 function bindCartButtons() {
@@ -522,6 +486,7 @@ function bindCartButtons() {
     const overlay = document.getElementById("overlay");
     const checkoutForm = document.getElementById("checkout-form");
 
+    // Open Cart
     if (cartButton) {
         cartButton.addEventListener("click", () => {
             if (typeof openCart === "function") openCart();
@@ -534,12 +499,14 @@ function bindCartButtons() {
         });
     }
 
+    // Close Cart
     if (closeCartBtn) {
         closeCartBtn.addEventListener("click", () => {
             if (typeof closeCart === "function") closeCart();
         });
     }
 
+    // Click outside cart
     if (overlay) {
         overlay.addEventListener("click", () => {
 
@@ -550,17 +517,17 @@ function bindCartButtons() {
         });
     }
 
+    // Open Checkout
     if (checkoutBtn) {
-        checkoutBtn.addEventListener("click", () => {
-            if (typeof closeCart === "function") closeCart();
-            openCheckout();
-        });
+        checkoutBtn.addEventListener("click", openCheckout);
     }
 
+    // Close Checkout (X button)
     if (closeCheckoutBtn) {
         closeCheckoutBtn.addEventListener("click", closeCheckout);
     }
 
+    // Click outside checkout popup
     if (checkoutModal) {
 
         checkoutModal.addEventListener("click", function (e) {
@@ -575,6 +542,7 @@ function bindCartButtons() {
 
     }
 
+    // Place Order
     if (checkoutForm) {
 
         checkoutForm.addEventListener("submit", function (e) {
@@ -630,8 +598,17 @@ function updateCartBadge(count) {
     const badge1 = document.getElementById("cart-count");
     const badge2 = document.getElementById("floating-cart-count");
 
-    if (badge1) badge1.textContent = count;
-    if (badge2) badge2.textContent = count;
+    if (badge1) {
+
+        badge1.textContent = count;
+
+    }
+
+    if (badge2) {
+
+        badge2.textContent = count;
+
+    }
 
 }
 
@@ -644,3 +621,41 @@ function getProductByName(name) {
     return allProducts.find(item => item.name === name);
 
 }
+
+function scrollToMenu() {
+
+    const menu = document.getElementById("menu");
+
+    if (menu) {
+
+        menu.scrollIntoView({
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+}
+
+// =====================================================
+// DEBUG
+// =====================================================
+
+window.addEventListener("load", () => {
+
+    console.log("🍦 App Loaded");
+
+    console.log("Products :", allProducts.length);
+
+    console.log("addItem :", typeof addItem);
+
+    console.log("openCart :", typeof openCart);
+
+});
+
+// =====================================================
+// END
+// =====================================================
+
+
