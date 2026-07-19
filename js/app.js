@@ -351,19 +351,25 @@ function createProductCard(product) {
 
     const icon = categoryIcons[product.category] || "🍽️";
 
-    const defaultSize = product.sizes[0];
+    // Support both new and old JSON formats
+    const sizes = product.sizes && product.sizes.length
+        ? product.sizes
+        : [{
+            size: "Regular",
+            price: product.price || product.single || 0
+        }];
+
+    const defaultSize = sizes[0];
 
     card.innerHTML = `
 
         <div class="product-top">
 
-            <div class="product-icon">
-                ${icon}
-            </div>
+            <div class="product-icon">${icon}</div>
 
             ${product.isBestseller
-                ? `<span class="badge bestseller">⭐ Bestseller</span>`
-                : ""}
+                ? '<span class="badge bestseller">⭐ Bestseller</span>'
+                : ''}
 
         </div>
 
@@ -376,11 +382,9 @@ function createProductCard(product) {
         </div>
 
         <div class="product-type">
-
-            ${product.type === "veg"
-                ? `<span class="veg">🟢 Veg</span>`
-                : `<span class="nonveg">🔴 Non-Veg</span>`}
-
+            ${product.type === "nonveg"
+                ? '<span class="nonveg">🔴 Non-Veg</span>'
+                : '<span class="veg">🟢 Veg</span>'}
         </div>
 
         <div class="product-size">
@@ -389,16 +393,12 @@ function createProductCard(product) {
 
             <select class="size-select">
 
-                ${product.sizes.map(size => `
-
+                ${sizes.map(s => `
                     <option
-                        value="${size.size}"
-                        data-price="${size.price}">
-
-                        ${size.size}
-
+                        value="${s.size}"
+                        data-price="${s.price}">
+                        ${s.size}
                     </option>
-
                 `).join("")}
 
             </select>
@@ -406,29 +406,17 @@ function createProductCard(product) {
         </div>
 
         <div class="product-price">
-
-            ₹<span class="price">
-
-                ${defaultSize.price}
-
-            </span>
-
+            ₹<span class="price">${defaultSize.price}</span>
         </div>
 
         <div class="qty-box">
-
             <button class="minus">−</button>
-
             <span class="qty">1</span>
-
             <button class="plus">+</button>
-
         </div>
 
         <button class="add-btn">
-
             🛒 Add To Cart
-
         </button>
 
     `;
@@ -439,7 +427,6 @@ function createProductCard(product) {
     sizeSelect.addEventListener("change", function () {
 
         const option = this.options[this.selectedIndex];
-
         price.textContent = option.dataset.price;
 
     });
@@ -451,11 +438,8 @@ function createProductCard(product) {
     card.querySelector(".minus").onclick = () => {
 
         if (qty > 1) {
-
             qty--;
-
             qtySpan.textContent = qty;
-
         }
 
     };
@@ -463,15 +447,13 @@ function createProductCard(product) {
     card.querySelector(".plus").onclick = () => {
 
         qty++;
-
         qtySpan.textContent = qty;
 
     };
 
     card.querySelector(".add-btn").onclick = () => {
 
-        const option =
-            sizeSelect.options[sizeSelect.selectedIndex];
+        const option = sizeSelect.options[sizeSelect.selectedIndex];
 
         for (let i = 0; i < qty; i++) {
 
@@ -488,6 +470,7 @@ function createProductCard(product) {
     return card;
 
 }
+
 // =====================================================
 // CART & CHECKOUT
 // =====================================================
