@@ -880,454 +880,6 @@
     ]
   },
   {
-    "id": 52,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Mango (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 53,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Mango (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 54,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Mango (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 55,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Mango (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
-    "id": 56,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Vanilla (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 57,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Vanilla (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 58,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Vanilla (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 59,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Vanilla (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
-    "id": 60,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Chocolate (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 61,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Chocolate (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 62,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Chocolate (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 63,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Chocolate (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
-    "id": 64,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Butterscotch (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 65,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Butterscotch (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 66,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Butterscotch (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 67,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Butterscotch (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
-    "id": 68,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Strawberry (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 69,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Strawberry (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 70,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Strawberry (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 71,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Strawberry (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
-    "id": 72,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Kesar Pista (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 73,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Kesar Pista (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 74,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Kesar Pista (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 75,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Kesar Pista (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
-    "id": 76,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Guava (100ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 30
-      }
-    ]
-  },
-  {
-    "id": 77,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Guava (250ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 69
-      }
-    ]
-  },
-  {
-    "id": 78,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Guava (500ml)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 129
-      }
-    ]
-  },
-  {
-    "id": 79,
-    "category": "HomeMade Gelato Ice Cream",
-    "name": "Guava (1 Ltr)",
-    "description": "",
-    "type": "veg",
-    "badge": "",
-    "isAvailable": true,
-    "isBestseller": false,
-    "sizes": [
-      {
-        "size": "Regular",
-        "price": 249
-      }
-    ]
-  },
-  {
     "id": 80,
     "category": "Milk Shakes",
     "name": "Classic Vanilla Bliss",
@@ -1692,6 +1244,202 @@
       {
         "size": "Regular",
         "price": 10
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Mango",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Vanilla",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Chocolate",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Butterscotch",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Strawberry",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Kesar Pista",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "category": "HomeMade Gelato Ice Cream",
+    "name": "Guava",
+    "description": "",
+    "type": "veg",
+    "badge": "",
+    "isAvailable": true,
+    "isBestseller": false,
+    "sizes": [
+      {
+        "size": "100ml",
+        "price": 30
+      },
+      {
+        "size": "250ml",
+        "price": 69
+      },
+      {
+        "size": "500ml",
+        "price": 129
+      },
+      {
+        "size": "1 Ltr",
+        "price": 249
       }
     ]
   }
