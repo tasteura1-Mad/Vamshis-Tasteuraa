@@ -364,17 +364,29 @@ function createProductCard(product) {
     card.innerHTML = `
 
        <div class="product-image-wrapper">
-
     <img
         src="${product.image}"
         alt="${product.name}"
-        class="product-image">
+        class="product-image"
+        loading="lazy"
+    >
 
     ${product.isBestseller
         ? '<span class="badge bestseller">⭐ Bestseller</span>'
         : ''}
 
+    ${product.badge
+        ? `<span class="badge premium">${product.badge}</span>`
+        : ''}
 </div>
+
+<div class="product-content">
+
+    <h3>${product.name}</h3>
+
+    <p class="product-description">
+        ${product.description}
+    </p>
 
         <div class="product-name">
             ${product.name}
