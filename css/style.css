@@ -1035,17 +1035,11 @@ a{
 }
 
 .product-card{
-
     background:#fff;
-
-    border-radius:16px;
-
+    border-radius:18px;
     border:1px solid #eee;
-
-    padding:20px;
-
+    overflow:hidden;
     transition:.3s;
-
 }
 
 .product-card:hover{
