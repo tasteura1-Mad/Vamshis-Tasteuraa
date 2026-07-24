@@ -349,8 +349,6 @@ function createProductCard(product) {
     const card = document.createElement("div");
     card.className = "product-card";
 
-    const icon = categoryIcons[product.category] || "🍽️";
-
     // Support both new and old JSON formats
     const sizes = product.sizes && product.sizes.length
         ? product.sizes
@@ -363,76 +361,76 @@ function createProductCard(product) {
 
     card.innerHTML = `
 
-       <div class="product-image-wrapper">
-    <img
-        src="${product.image}"
-        alt="${product.name}"
-        class="product-image"
-        loading="lazy"
-    >
+        <div class="product-image-wrapper">
 
-    ${product.isBestseller
-        ? '<span class="badge bestseller">⭐ Bestseller</span>'
-        : ''}
+            <img
+                src="${product.image || 'images/products/default.png'}"
+                alt="${product.name}"
+                class="product-image"
+                loading="lazy"
+            >
 
-    ${product.badge
-        ? `<span class="badge premium">${product.badge}</span>`
-        : ''}
-</div>
+            ${product.isBestseller
+                ? '<span class="badge bestseller">⭐ Bestseller</span>'
+                : ''}
 
-<div class="product-content">
-
-    <h3>${product.name}</h3>
-
-    <p class="product-description">
-        ${product.description}
-    </p>
-
-        <div class="product-name">
-            ${product.name}
-        </div>
-
-        <div class="product-description">
-            ${product.description || ""}
-        </div>
-
-        <div class="product-type">
-            ${product.type === "nonveg"
-                ? '<span class="nonveg">🔴 Non-Veg</span>'
-                : '<span class="veg">🟢 Veg</span>'}
-        </div>
-
-        <div class="product-size">
-
-            <label>Size</label>
-
-            <select class="size-select">
-
-                ${sizes.map(s => `
-                    <option
-                        value="${s.size}"
-                        data-price="${s.price}">
-                        ${s.size}
-                    </option>
-                `).join("")}
-
-            </select>
+            ${product.badge
+                ? `<span class="badge premium">${product.badge}</span>`
+                : ''}
 
         </div>
 
-        <div class="product-price">
-            ₹<span class="price">${defaultSize.price}</span>
-        </div>
+        <div class="product-content">
 
-        <div class="qty-box">
-            <button class="minus">−</button>
-            <span class="qty">1</span>
-            <button class="plus">+</button>
-        </div>
+            <h3 class="product-title">${product.name}</h3>
 
-        <button class="add-btn">
-            🛒 Add To Cart
-        </button>
+            <p class="product-description">
+                ${product.description || ""}
+            </p>
+
+            <div class="product-type">
+                ${product.type === "nonveg"
+                    ? '<span class="nonveg">🔴 Non-Veg</span>'
+                    : '<span class="veg">🟢 Veg</span>'}
+            </div>
+
+            <div class="product-size">
+
+                <label>Select Size</label>
+
+                <select class="size-select">
+
+                    ${sizes.map(s => `
+                        <option
+                            value="${s.size}"
+                            data-price="${s.price}">
+                            ${s.size}
+                        </option>
+                    `).join("")}
+
+                </select>
+
+            </div>
+
+            <div class="product-price">
+                ₹<span class="price">${defaultSize.price}</span>
+            </div>
+
+            <div class="qty-box">
+
+                <button class="minus">−</button>
+
+                <span class="qty">1</span>
+
+                <button class="plus">+</button>
+
+            </div>
+
+            <button class="add-btn">
+                🛒 Add To Cart
+            </button>
+
+        </div>
 
     `;
 
