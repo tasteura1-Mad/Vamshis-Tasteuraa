@@ -1056,26 +1056,60 @@ a{
 
 }
 
-.product-image{
+/* ===== NEW IMAGE STYLES START HERE ===== */
 
+.product-image-wrapper{
+    position:relative;
     width:100%;
+    height:220px;
+    overflow:hidden;
+    border-radius:18px 18px 0 0;
+    background:#fafafa;
+}
 
-    height:180px;
+.product-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.4s;
+}
 
-    border-radius:12px;
+.product-card:hover .product-image{
+    transform:scale(1.08);
+}
 
-    background:#FFF4E4;
+.product-content{
+    padding:16px;
+}
 
-    display:flex;
+.product-description{
+    color:#666;
+    font-size:14px;
+    line-height:1.5;
+    margin:8px 0 15px;
+}
 
-    align-items:center;
+/* ===== BADGES ===== */
 
-    justify-content:center;
+.badge{
+    position:absolute;
+    padding:6px 12px;
+    border-radius:30px;
+    color:#fff;
+    font-size:12px;
+    font-weight:600;
+}
 
-    font-size:70px;
+.bestseller{
+    top:12px;
+    left:12px;
+    background:#ff5722;
+}
 
-    margin-bottom:18px;
-
+.premium{
+    top:12px;
+    right:12px;
+    background:#2e7d32;
 }
 
 .product-name{
